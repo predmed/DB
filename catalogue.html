@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="functions-eng2.js"></script>
+<head>
+	<meta charset="utf-8"/>
+    <script src="functions-eng.js"></script>
 	<link rel="stylesheet" type="text/css" href="mycss.css">
+<!--	<meta HTTP-EQUIV="REFRESH" CONTENT="1;URL=http://predmed.upf.edu/predmeddb/"> -->
+    <meta http-equiv="Expires" content="0" />
+	<meta http-equiv="Last-Modified" content="0" />
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
 </head>
 <body onload="carregatext()">
       <table border="0" width="100%">
-        <tr><td width="90%" class="head1"><a href="http://predmed.upf.edu/" style="text-decoration:none;color:grey">PredMed</a>DB: Database of Medieval Hispanic Manuscripts related to Preaching</td>
-		<td width="10%"><a href="catalogo.html"><img src="spa.png"></a></td></tr>
+      <tr><td width="94%" class="head1"><a href="http://predmed.upf.edu/catalogue.html" style="text-decoration:none;color:grey">PredMed</a>DB: Database of Medieval Hispanic Manuscripts related to Preaching</td>
+		<td width="6%"><a href="catalogo.html"><img src="spa.png"></a></td></tr>
 	 </table>
 <table border='0' width=100%>
 	<tr><td id="contador"></td>
@@ -19,30 +25,30 @@
   <table border='0'>
      <tr>
 	    <td style="vertical-align:middle"><b>Sermons</b></td>
-		<td style="text-align:center;">Manuscript (City, archive or catalogue number)<br/>
-	     <input name="ms" id="ms" size="40" class="awesomplete" list="mylist" />
+		<td style="text-align:center;"><form><label>Manuscript (City, archive or catalogue number)</label><br/>
+	     <input name="ms" id="ms" size="50" class="awesomplete" list="mylist" />
             <datalist id="mylist">
+			<option value="ANBM250">Angers, Bibliothèque Municipale, ms. 250</option>
 			<option value="AioAP">Aiora, Arxiu parroquial</option>
-			<option value="AugStaa218">Augsburgo, Staats-und Stadtbibliotek 4º cod. 218</option>
+			<option value="AugStaa218">Augsburg, Staats-und Stadtbibliotek 4º cod. 218</option>
 			<option value="AssBScSF414">Assisi, Biblioteca del Sacro Convento di San Francesco, cod. 414</option>
 			<option value="AssBScSF485">Assisi, Biblioteca del Sacro Convento di San Francesco, cod. 485</option>
 			<option value="AssBScSF532">Assisi, Biblioteca del Sacro Convento di San Francesco, cod. 532</option>
 			<option value="AuchBM4">Auch, Biblioth&#232;que Municipales, ms. 4</option>
 			<option value="AutBM51[s56]">Autun, Bibliotheque Municipale, 51[s56]</option>
+			<option value="AviBM610">Avignon, Bibliotheque Municipale, ms. 610</option>
 			<option value="BarCat182-5">Barcelona, Arxiu de la Catedral, cod. 182-5</option>
 		    <option value="BarCat186-3">Barcelona, Arxiu de la Catedral, cod. 186-3</option>
-			<option value="BcnAcaRi29">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 29</option>
+			<!-- <option value="BcnAcaRi29">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 29</option> -->
 			<option value="BcnAcaRi36">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 36</option>
 			<option value="BcnAcaRi56">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 56</option>
-			<option value="BcnAcaRi63">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 63</option>
-			<option value="BcnAcaRi83">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 83</option>
-			<option value="BcnAcaRi86">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 86</option>
 			<option value="BcnAcaRi93">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 93</option>
 			<option value="BcnAcaRi110">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 110</option>
 			<option value="BcnAcaRi117">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 117</option>
 			<option value="BcnAcaRi120">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 120</option>
 			<option value="BcnAcaRi124">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 124</option>
-			<option value="BcnAcaRi128">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 128</option>
+			<!-- <option value="BcnAcaRi128">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 128</option> No semblen sermons-->
+			<option value="BcnAcaRi130">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 130 (Flores evangeliorum)</option>
 			<option value="BcnAcaRi149">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 149</option>
 			<option value="BcnAcaRi170">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 170</option>
 			<option value="BcnAcaRi176">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 176</option>
@@ -51,6 +57,7 @@
 			<option value="BcnAcaRi192">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 192</option>
 			<option value="BcnAcaRi193">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 193</option>
 			<option value="BcnAcaRi195">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 195</option>
+			<option value="BcnAcaRi202">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 202</option>
 			<option value="BcnAcaRi205">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 205</option>
 			<option value="BcnAcaRi206">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 206</option>
 			<option value="BcnAcaRi209">Barcelona, Arxiu de la Corona d'Arag&#243, Ripoll, 209</option>
@@ -71,41 +78,73 @@
 			<option value="BcnAcaSc69">Barcelona, Arxiu de la Corona d'Arag&#243, Sant Cugat, 69</option>
 			<option value="BcnAcaSc86">Barcelona, Arxiu de la Corona d'Arag&#243, Sant Cugat, 86</option>
 			<option value="BcnAcaSc96">Barcelona, Arxiu de la Corona d'Arag&#243, Sant Cugat, 96</option>
+			<option value="BcnAHCBarab325,A-6">Barcelona, Arxiu Històric de la ciutat de Barcelona, ms. àrab 325, A-6</option>			
 			<option value="BcnBc289">Barcelona, Biblioteca de Catalunya, 289 (Homilies d'Organy&#224;)</option>
 			<option value="BcnBc466">Barcelona, Biblioteca de Catalunya, 466</option>
 			<option value="BcnBc476">Barcelona, Biblioteca de Catalunya, 476</option>
 			<option value="BcnBc477">Barcelona, Biblioteca de Catalunya, 477</option>
             <option value="BcnBc478">Barcelona, Biblioteca de Catalunya, 478</option>
 			<option value="BcnBc479">Barcelona, Biblioteca de Catalunya, 479</option>
-            <option value="BcnUb75">Barcelona, Biblioteca Universitària, 75</option>
-            <option value="BcnUb75">Barcelona, Biblioteca Universitària, 234</option>
+			<option value="BcnBc542">Barcelona, Biblioteca de Catalunya, 542</option>
+			<option value="BcnBc571">Barcelona, Biblioteca de Catalunya, 571</option>
+			<option value="BcnBc580">Barcelona, Biblioteca de Catalunya, 580</option>
+			<option value="BcnBc717">Barcelona, Biblioteca de Catalunya, 717</option>
+			<option value="BcnBc2021">Barcelona, Biblioteca de Catalunya, 2021</option>
+			<option value="BcnBc2279">Barcelona, Biblioteca de Catalunya, 2279</option>			
+<!--			<option value="BcnBc3171">Barcelona, Biblioteca de Catalunya, 3171</option>  -->
+            <option value="BcnUb75">Barcelona, Biblioteca Universit&#224;ria, 75</option>
+            <option value="BcnUb234">Barcelona, Biblioteca Universit&#224;ria, 234</option>
 			<option value="BudUniLat73">Budapest, Universidad, ms. lat. 73</option>
+			<option value="BOsCat15">Burgo de Osma, Catedral, 15</option>
 			<option value="BOsCat26">Burgo de Osma, Catedral, 26</option>
 			<option value="BOsCat30">Burgo de Osma, Catedral, 30</option>
-			<option value="BOsCat35">Burgo de Osma, Catedral, 35</option>
+			<option value="BOsCat133">Burgo de Osma, Catedral, 133</option>
+			<option value="BOsCat141">Burgo de Osma, Catedral, 141</option>
+			<option value="BOsCat143">Burgo de Osma, Catedral, 143</option>
+			<option value="BOsCat146">Burgo de Osma, Catedral, 146</option>
+			<option value="BOsCat162">Burgo de Osma, Catedral, 162</option>
 			<option value="BurCat1">Burgos, Catedral, 1</option>
 			<option value="BurCat2">Burgos, Catedral, 2</option>
-			<option value="CorCap1">Córdoba, Archivo Capitular, 1</option>
+			<option value="CamPem98">Cambridge, Pembroke College MS 98</option>
+			<option value="CleBM45">Clermont-Ferrand, Bibliothèque Municipale (Bibliothèque du Patrimoine), ms 45</option>
+			<option value="CorCap1">C&#243;rdoba, Archivo Capitular, 1</option>
+			<option value="CorCap126">C&#243;rdoba, Archivo Capitular, 126</option>
+			<option value="CorCap128">C&#243;rdoba, Archivo Capitular, 128</option>
+			<option value="CorCap159">C&#243;rdoba, Archivo Capitular, 159</option>
+			<option value="CieKsiDDV7">Cieszyn, Ksiaznica Cieszynska, DD-V-7</option>
 			<option value="CraUniJag471">Cracovia, Universidad de Jagell, ms. 471</option>
+			<option value="EdiUL80">Edinburg, University Library, ms. 80</option>
 			<option value="EscbII18">El Escorial, Biblioteca del Monasterio, b.II.18</option>
 			<option value="EscdIII14">El Escorial, Biblioteca del Monasterio, d.III.4</option>
 			<option value="EscMII6">El Escorial, Biblioteca del Monasterio, M.II.6</option>
 			<option value="EscRII14">El Escorial, Biblioteca del Monasterio, R.II.14</option>
+			<option value="EscRII18">El Escorial, Biblioteca del Monasterio, R.II.18</option>
 			<option value="EscSI13">El Escorial, Biblioteca del Monasterio, S.I.13</option>			
 			<option value="CapXXXII">Capestrano, cod. XXXII</option>
-			<option value="FirLauPlutXXXIsin1">Florence, Biblioteca Medicea Laurenziana, Plut. XXXIII sin. 1</option>
-            <option value="FirBncConvSopprA81750">Florence, Biblioteca Nazionale Centrale, MS Conv. sopp. A.1750</option>
-			<option value="FriCor62">Friburgo, Couvent des Cordeliers, ms. 62</option>
+			<option value="FirLauPlutXXXIsin1">Firenze, Biblioteca Medicea Laurenziana, Plut. XXXIII sin. 1</option>
+            <option value="FirBncConvSopprA81750">Firenze, Biblioteca Nazionale Centrale, MS Conv. sopp. A.1750</option>
+			<option value="FriCor62">Friburg, Couvent des Cordeliers, ms. 62</option>
 			<option value="GirMA56">Girona, Museu d'Art, 56</option>
 			<option value="GirFel44">Girona, Sant Fèlix, 44</option>
+			<option value="GraUni551">Graz, Universit&#228;tsbibliotek, ms. 551</option>
 			<option value="GuaBPE03">Guadalajara, Biblioteca P&#250;blica del Estado, 03</option>
 			<option value="GuaBPE6">Guadalajara, Biblioteca P&#250;blica del Estado, 06</option>
 			<option value="GuaBPE07">Guadalajara, Biblioteca P&#250;blica del Estado, 07</option>
 			<option value="HeiSal9-17a">Heildelberg, Univ. Salem 9-17a, 96v.</option>
+			<option value="Klo282">Klosterneuburg, ms. 282</option>
+			<option value="KreSti123">Kremsmünster, Stiftbibliotek, ms 4</option>
 			<option value="LeoSI11">Le&#243;n, Colegiata de San Isidoro, ms. 11</option>
 			<option value="LeoSI23">Le&#243;n, Colegiata de San Isidoro, ms. 23</option>
 			<option value="LeoSI25">Le&#243;n, Colegiata de San Isidoro, ms. 25</option>
 			<option value="LeoSI40">Le&#243;n, Colegiata de San Isidoro, ms. 40</option>
+			<option value="LeoSI51">Le&#243;n, Colegiata de San Isidoro, ms. 51</option>
+			<option value="LjuDrz106.23">Ljubljiana, Drzavna (Licejska) Knjiznica Slovenia</option>
+			<option value="LleCapRC0032">Lleida, Arxiu Capitular, RC 0032</option>
+			<option value="LleCapRC0035">Lleida, Arxiu Capitular, RC 0035</option>
+			<option value="LleCapRoda7">Lleida, Arxiu Capitular, fons de Roda, 7</option>
+			<option value="LleCapRoda10">Lleida, Arxiu Capitular, fons de Roda, 10</option>
+			<option value="LonBLAdd30844">London, British Library, Add. 30844</option>
+			<option value="LonBLAdd30853">London, British Library, Add. 30853 (Homiliae Toletanae, Homiliario de Silos u Homiliario de Toledo)</option>
 			<option value="MarBm1095">Marseille, Biblioth&#232que Municipale, ms. 1095</option>
 			<option value="MadBN95">Madrid, Biblioteca Nacional, ms. 95</option>
 			<option value="MadBN184">Madrid, Biblioteca Nacional, ms. 184</option>
@@ -115,6 +154,8 @@
 			<option value="MadBN4283">Madrid, Biblioteca Nacional, ms. 4283</option>			
 			<option value="MadBN4402">Madrid, Biblioteca Nacional, ms. 4402</option>
 			<option value="MadBN6936">Madrid, Biblioteca Nacional, ms. 6936</option>
+			<option value="MadBN8959">Madrid, Biblioteca Nacional, ms. 8959</option>
+			<option value="MadBN9067">Madrid, Biblioteca Nacional, ms. 9067</option>
 			<option value="MadBN9433">Madrid, Biblioteca Nacional, ms. 9433</option>
 			<option value="MadBN9589">Madrid, Biblioteca Nacional, ms. 9589 (Ars praedicandi aragonensis)</option>
 			<option value="MadBN9626">Madrid, Biblioteca Nacional, ms. 9626</option>			
@@ -122,24 +163,51 @@
 			<option value="MadTNT17">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/17)</option>
 			<option value="MadTNT20">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/20)</option>
 			<option value="MadTNT25">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/25)</option>
+			<option value="MadTNT30">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/30)</option>
 			<option value="MadTNT37">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/37)</option>
+			<option value="MadTNT52">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/52)</option>
 			<option value="MadTNT53">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/53)</option>
 			<option value="MadTNT54">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/54)</option>
+			<option value="MadTNT64-J3">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/64-J3)</option>
+			<option value="MadTNT69-2">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/69-2)</option>
+			<option value="MadTNT78-1">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/78-1)</option>
+			<option value="MadTNT96-2">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/96-2)</option>
+			<option value="MadTNT98-2">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/98-2)</option>
+			<option value="MadTNT100-3">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/100-3)</option>
+			<option value="MadTNT100-5">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/100-5)</option>
+			<option value="MadTNT100-7">Madrid, CSIC, Biblioteca de Tom&#225;s Navarro Tom&#225;s Fondo Antiguo TN (RESC/100-7)</option>
+			<option value="MadlazGalM7-3-16">Madrid, Fundaci&#243;n Lázaro Galiano, ms M7-3-16</option>
+			<option value="MadlazGalM5-1-23">Madrid, Fundaci&#243;n Lázaro Galiano, ms M5-1-23</option>
 			<option value="MadRAE294">Madrid, Real Academia Espa&#241;ola, ms. 294</option>
-			<option value="Mon822">Montserrat, Bibioteca del monestir, ms. 822</option>
+			<option value="MadRahAem14">Madrid, Real Academia de la Historia, Aem. 14</option>
+			<option value="MadRahAem17">Madrid, Real Academia de la Historia, Aem. 17</option>
+			<option value="MadRahAem21">Madrid, Real Academia de la Historia, Aem. 21</option>
+			<option value="MadRahAem23">Madrid, Real Academia de la Historia, Aem. 23</option>
+			<option value="MadRahAem28">Madrid, Real Academia de la Historia, Aem. 28</option>
+			<option value="MadRahAem38">Madrid, Real Academia de la Historia, Aem. 38</option>
+			<option value="MadRahAem39">Madrid, Real Academia de la Historia, Aem. 39</option>
+			<option value="MadRahAem60">Madrid, Real Academia de la Historia, Aem. 60</option>
+			<option value="MadRahAem63">Madrid, Real Academia de la Historia, Aem. 63</option>
+			<option value="MadRealII/2097">Madrid, Real Biblioteca, II/2097</option>
+			<option value="Melk215">Melk, Monastery, ms. 215</option>
+			<option value="MilAmbA11">Milan, Ambrosiana, A.11</option>
+			<option value="MilAmbB116">Milan, Ambrosiana, B.116</option>
+			<option value="Mon822">Montserrat, Biblioteca del monestir, ms. 822</option>
 			<option value="Mon1112">Montserrat, Bibioteca del monestir, ms. 1112</option>
 			<option value="NapBNVH57">Naples, Bibioteca Nazionale, V.H. 57</option>
 			<option value="NapBNVH270">Naples, Bibioteca Nazionale, V.H. 270</option>
-			<option value="OloVedMII243">Olomouc, Vědecká knihovna, M II, 243</option>
+			<option value="NurStaCentV82">Nührenberg, Stadtbibliotek, Cent. V, 82</option>
+			<option value="OloVedMII243">Olomouc, St&#225;tn&#237; Vedeck&#225; Knihovna, M.II.243</option>
 			<option value="OviUni444">Oviedo, Biblioteca Universitaria, ms. 444</option>
 			<option value="OviCat35">Oviedo, Catedral, ms. 35</option>
-            <option value="OviCatGot14">Oviedo, Catedral, Librería Gótica, ms. 14</option>
+            <option value="OviCatGot14">Oviedo, Catedral, Librer&#237;a G&#243;tica, ms. 14</option>
 			<option value="OxBodDou162">Oxford, Bodleian Library, Douce, 162</option>
 			<option value="OxBodAsh757">Oxford, Bodleian Library, Ashmole, 757</option>
 			<!-- <option value="OxMer237">Oxford, Merton College, ms. 237</option> -->
 			<option value="OxMer327">Oxford, Merton College, ms. 327</option>
 			<option value="PalBPE25">Palma de Mallorca, Biblioteca P&#250;blica del Estado, ms. 25</option>
-			<option value="PalBPE26">Palma de Mallorca, Biblioteca P&#250;blica del Estado, ms. 26</option>			
+			<option value="PalBPE26">Palma de Mallorca, Biblioteca P&#250;blica del Estado, ms. 26</option>
+			<option value="PalBPE529">Palma de Mallorca, Biblioteca P&#250;blica del Estado, ms. 529</option>
 			<option value="PamBc11">Pamplona, Biblioteca de la catedral, ms. 11</option>
 			<option value="PamBc34">Pamplona, Biblioteca de la catedral, ms. 34</option>
 			<option value="PamBc45">Pamplona, Biblioteca de la catedral, ms. 45</option>
@@ -148,26 +216,37 @@
 	        <option value="PamBc49">Pamplona, Biblioteca de la catedral, ms. 49</option>
 			<option value="PamBc50">Pamplona, Biblioteca de la catedral, ms. 50</option>
 			<option value="PamBc89">Pamplona, Biblioteca de la catedral, ms. 89</option>
+			<option value="ParBnfnal2176">Paris, Bibliotheque Nationale, n.a.l. 2176</option>
 			<option value="ParBnfesp11">Paris, Bibliotheque Nationale, ms. esp. 11</option>
+			<option value="Parbnflat1424">Paris, Bibliotheque Nationale, ms. lat. 1424</option>
+			<option value="Parbnflat2134">Paris, Bibliotheque Nationale, ms. lat. 2134</option>
 			<option value="ParBnflat3291">Paris, Bibliotheque Nationale, ms. lat. 3291</option>
+			<option value="ParBnflat5078">Paris, Bibliotheque Nationale, ms. lat. 5078</option>
+			<option value="ParBnflat12405">Paris, Bibliotheque Nationale, ms. lat. 12405</option>
 			<option value="ParBnflat14899">Paris, Bibliotheque Nationale, ms. lat. 14899</option>
 			<option value="ParBnflat14947">Paris, Bibliotheque Nationale, ms. lat. 14947</option>
 			<option value="ParBnflat14955">Paris, Bibliotheque Nationale, ms. lat. 14955</option>
-			<option value="ParBnflat16481">Paris, Bibliotheque Nationale, ms. lat. 16481</option>
 			<option value="ParBnflat15129">Paris, Bibliotheque Nationale, ms. lat. 15129</option>
 			<option value="ParBnflat15952">Paris, Bibliotheque Nationale, ms. lat. 15952</option>
-			<option value="ParBnflat16482">Paris, Bibliotheque Nationale, ms. lat. 16482</option>
 			<option value="PerDom62">Perugia, Convento dei Domenicani, ms. 62</option>
 			<option value="PerDom477">Perugia, Convento dei Domenicani, ms. 477</option>
+			<option value="RomAng304">Roma, Biblioteca Angelica, ms. 304</option>
 			<option value="SalUni203">Salamanca, Biblioteca de la Universidad, ms. 203</option>
 			<option value="SalUni244">Salamanca, Biblioteca de la Universidad, ms. 244</option>
 			<option value="SalUni1854">Salamanca, Biblioteca de la Universidad, ms. 1854</option>
 			<option value="SalUni1856">Salamanca, Biblioteca de la Universidad, ms. 1856</option>
+			<option value="SalUni2078">Salamanca, Biblioteca de la Universidad, ms. 2078</option>
 			<option value="SalUni2095">Salamanca, Biblioteca de la Universidad, ms. 2095</option>			
 			<option value="SalUni2187">Salamanca, Biblioteca de la Universidad, ms. 2187</option>
+			<option value="Calixtino">Santiago de Compostela, Archivo de la catedral, s.n. (Calixtinus)</option>
+			<option value="SevBC56-5-31">Sevilla, Biblioteca Capitular y Colombina, ms. 56-5-31</option>
+			<option value="SevBC56-5-32">Sevilla, Biblioteca Capitular y Colombina, ms. 56-5-32</option>
 			<option value="SevBC59-3-7">Sevilla, Biblioteca Capitular y Colombina, ms. 59-3-7</option>
 			<option value="SevBC82-5-3">Sevilla, Biblioteca Capitular y Colombina, ms. 82-5-3</option>
+			<option value="SevBC83-2-15">Sevilla, Biblioteca Capitular y Colombina, ms. 83-2-15</option>
+			<option value="SevBC85-3-43">Sevilla, Biblioteca Capitular y Colombina, ms. 85-3-43</option>
 			<option value="SevBC123-3-2">Sevilla, Biblioteca Capitular y Colombina, ms. 123-3-2</option>
+            <option value="SevBC123-3-6">Sevilla, Biblioteca Capitular y Colombina, ms. 123-3-6</option>
 			<option value="SevBC123-3-7">Sevilla, Biblioteca Capitular y Colombina, ms. 123-3-7</option>
 			<option value="SorBPE3-H">Soria, Biblioteca P&#250;blica del Estado, 3-H</option>
 			<option value="SorBPE15-H(2)">Soria, Biblioteca P&#250;blica del Estado, 15-H(2)</option>
@@ -175,6 +254,8 @@
 			<option value="SorBPE19-H">Soria, Biblioteca P&#250;blica del Estado, 19-H</option>
 			<option value="SorBPE25-H">Soria, Biblioteca P&#250;blica del Estado, 25-H</option>
 			<option value="TolBPE242">Toledo, Biblioteca P&#250blica del Estado, ms. 242</option>
+			<option value="TarCat49">Tarazona, Biblioteca de la Catedral, ms. 49</option>
+			<option value="TarCat60">Tarazona, Biblioteca de la Catedral, ms. 60</option>
 			<option value="TarBPE1">Tarragona, Biblioteca P&#250;blica del Estado, ms. 1</option>
 			<option value="TarBPE3">Tarragona, Biblioteca P&#250;blica del Estado, ms. 3</option>
 			<option value="TarBPE5">Tarragona, Biblioteca P&#250;blica del Estado, ms. 5</option>
@@ -205,8 +286,17 @@
 			<option value="TarBPE139">Tarragona, Biblioteca P&#250;blica del Estado, ms. 139</option>
 			<option value="TarBPE151">Tarragona, Biblioteca P&#250;blica del Estado, ms. 151</option>
 			<option value="TolCatoct5-26">Toledo, Biblioteca Capitular, ms. oct. 5-26</option>
+			<option value="TorCat33">Tortosa, Arxiu Capitular, ms. 33</option>
+			<option value="TorCat68">Tortosa, Arxiu Capitular, ms. 68</option>
+			<option value="TorCat87">Tortosa, Arxiu Capitular, ms. 87</option>
+			<option value="TorCat94">Tortosa, Arxiu Capitular, ms. 94</option>
+			<option value="TorCat97">Tortosa, Arxiu Capitular, ms. 97</option>
+			<option value="TorCat99">Tortosa, Arxiu Capitular, ms. 99</option>
+			<option value="TorCat104">Tortosa, Arxiu Capitular, ms. 104</option>
 			<option value="TorCat106">Tortosa, Arxiu Capitular, ms. 106 (Homilies de Tortosa)</option>
 			<option value="TorCat109">Tortosa, Arxiu Capitular, ms. 109</option>
+			<option value="TorCat121">Tortosa, Arxiu Capitular, ms. 121</option>
+			<option value="TorCat196-62">Tortosa, Arxiu Capitular, ms. 196-62</option>
 			<option value="TouBM345">Toulouse, Biblioth&#232;que Municipale, ms. 345</option>
 			<option value="TouBM346">Toulouse, Biblioth&#232;que Municipale, ms. 346</option>
 			<option value="TroBM30">Troyes, Biblioth&#232;que Municipale, ms. 30</option>
@@ -228,14 +318,23 @@
 			<option value="ValCat266">Valencia, Catedral, ms. 266</option>
 			<option value="ValCat269">Valencia, Catedral, ms. 269</option>
 			<option value="ValCat271">Valencia, Catedral, ms. 271</option>
+			<option value="ValCat284">Valencia, Catedral, ms. 284</option>
 			<option value="ValCat273">Valencia, Catedral, ms. 273</option>
 			<option value="ValCat279">Valencia, Catedral, ms. 279</option>
+			<option value="ValCat294">Valencia, Catedral, ms. 294</option>
 			<option value="ValPat">Valencia, Colegio del Patriarca</option>
 			<option value="ValBSC383">Valladolid, Biblioteca de la Santa Cruz, ms. 383</option>
+			<option value="ChicCV127">Vaticano, BAV, Chigi C.V. 127</option>
+			<option value="OttobLat505">Vaticano, BAV, Ottob. lat., 505</option>			
 			<option value="VatLat1023">Vaticano, BAV, Vat. Lat. 1023</option>
 			<option value="VatLat4375">Vaticano, BAV, Vat. Lat. 4375</option>
+			<option value="VatLat7609">Vaticano, BAV, Vat. Lat. 7609</option>
 			<option value="VatLat7730">Vaticano, BAV, Vat. Lat. 7730</option>
+			<option value="VenRed30">Venice, Biblioteca dei PP. Redentoristi, ms. 30</option>
+			<option value="VenMar123">Venice, Biblioteca Marciana, ms. 123</option>
 			<option value="VicCapXIII-6">Vic, Arxiu Capitular, fragment XIII-6</option>
+			<option value="VicCapfrv10">Vic, Arxiu Capitular, fragment V.10</option>
+			<option value="WieHeiZis143">Heiligenkreuz, Zisterzienserstift, Cod. 143</option>
 			<option value="WorCatF5">Worcester, Cathedral, F.5</option>
  </datalist>
 	    <br/><input name="manus" id="manus" type="button" class ="btn" value="Search" onclick="resetms()" />
@@ -249,30 +348,44 @@
    <td style="text-align:center;">Author/Preacher<br>
       <input name="pred" id="pred" size="20" class="awesomplete" list="mylist2" />
       <datalist id="mylist2">
-	     <option>An&#243;nimo</option><option>Abad Oliva</option>
-	     <option>Alfonso de Valladolid</option><option>Antonius Andreae</option><option>Bartomeu Catany</option>
+	     <option>An&#243;nimo</option><option>Abad Oliva</option><option>Alonso de Espina</option><option>Antonino da Firenze</option>
+		 <option>Agust&#237;n de Hipona</option><option>Alfonso de Valladolid</option><option>Antonius Andreae</option>
+		 <option>Bartomeu Catany</option>
 	     <option>Bernardino da Siena</option><option>Bernat de D&#233;u</option><option>Bernard du Rosier (Bernat de Rosierge)</option>
-	     <!-- <option>Hildebert de Lavardin </option>-->
+	     <option>Hildebert de Lavardin </option><option>Thomas Lebreton</option>
+		 
 	     <option>Bernat Oliver</option><option>Marc Bonfill (Marcus Bonifilii)</option><option>Magister Franciscus</option>
 	     <option>Felip de Malla</option><option>Francesc Eiximenis</option><option>Juan Gil de Zamora</option><option>Sancho Porta</option>
-	     <option>Juan L&#243pez de Salamanca</option><option>Guillem Sim&#243; (Guillelmus Simonis)</option>
-	     <option>Vicente Ferrer</option><option>Mart&#237n de Le&#243n </option>
-	     <option>Matteo d&#39;Agrigento</option><option>Jacques de Vitry</option><option>Juan de Abbeville</option>
-	     <option>Juan de Arag&#243;n</option><option>Antonino da Firenze</option><option>Ferrer Català (Ferrarius Catalanus)</option>
-	     <option>Juan de Monz&#243;n</option><option>Pedro Mart&#237;nez de Osma</option>
-	     <option>Alonso de Espina</option><option>Raimundus de Pennaforte</option>
-		  <option>Nicolau Eimeric</option><option>Gundisalvus (Gonzalo) de Aguilar</option><option>Pedro de Luna (Benedicto XIII)</option>
-		 <!-- Italianos -->
-		 <option>Dominicus de Rupella </option><option>Guido de Boulogne</option>
+	     <option>Juan L&#243pez de Salamanca</option>
+		 <option>Guillem Sim&#243; (Guillelmus Simonis)</option><option>Guillaume Peyraut</option><option>Guibert de Tournai</option>
 		 
+		 <option>Leandro de Sevilla</option>
+		 <option>Llobet Benet (Lupinus Arulensis)</option>
+	     <option>Vicente Ferrer</option><option>Mart&#237n de Le&#243n </option>
+	     <option>Jacques de Vitry</option><option>Jean d'Abbeville</option>
+	     <option>Juan de Arag&#243;n</option><option>Ferrer Catal&#224; (Ferrarius Catalanus)</option>
+	     <option>Juan de Monz&#243;n</option><option>Juan de Torquemada</option><option>Joan de Palomar</option>
+		 <option>Matteo d&#39;Agrigento</option>
+		 <option>Pedro Mart&#237;nez de Osma</option>
+	     <option>Raimundus de Pennaforte</option>
+		  <option>Nicolau Eimeric</option><option>Gundisalvus (Gonzalo) de Aguilar</option><option>Pedro de Luna (Benedicto XIII)</option>
+		 <option>Alfonso de Cartagena</option><option>Jordi d'Orn&#243;s</option><option>Joan d'Alcoi</option>
+		 <option>Michael de Furno</option>
+		 <!-- Italianos -->
+		  <option>Dominicus de Rupella </option><option>Guido de Boulogne</option><option>Lotario di Segni (Innocent III)<option>
+		  <option>Landulfo Caracciolo</option><option>Matteo d'Acquasparta</option><option>Michele Aiguani da Bologna</option>
+		  <option>Monaldus de Iustinopoli</option>
 		 <!-- <option>Bernard du Rosier (Bernat de Rosierge)</option> -->
-		 <!-- <option>Ambrosio Montesino</option> <option>Guillelmus Alnwick</option><option>Giovanni Gatto</option><option>Monaldus de Iustinopoli</option> <option>Federico Visconti</option> <option>Giordano da Pisa</option><option>Aldobrandino Cavalcanti</option>-->
+		 <!-- <option>Ambrosio Montesino</option> <option>Guillelmus Alnwick</option><option>Giovanni Gatto</option><option>Federico Visconti</option> <option>Giordano da Pisa</option><option>Aldobrandino Cavalcanti</option>-->
 	 	
 		<!-- Franceses -->
-	     <option>Petrus Hispanus</option><option>Petrus Rogerii (Clemente VI)</option><option>Agust&#237;n de Hipona</option><option>Hugues de Vaucemain</option>
-
+		<option>Geoffroy Babion</option><option>Guillelmus de Merula</option><option>Pierre de Saint-Beno&#238;t</option>
+	     <option>Abbo de Saint-Germain</option><option>Nicolas de Biard</option><option>Guilelmus de Barlo</option><option>Jacques de Lausanne</option>
+		 <option>Petrus Hispanus</option><option>Petrus Rogerii (Clemente VI)</option><option>Hugues de Vaucemain</option>
+		<option>Petrus Aureolus</option><option>Nicolas de Gorran</option><option>Guillaume de Bar</option>
+		<option>Eudes de Cheriton</option>
 	    <!-- Padres de la Iglesia-->
-		 <option>San Jer&#243;nimo</option><option>Hyeronimus Aretinus</option><option>Gregorio Magno</option>
+		 <option>San Jer&#243;nimo</option><option>Hyeronimus Aretinus</option><option>Gregorius I, Papa</option>
 		
 		<option>Guillelmus Alnwick</option>
 		
@@ -325,6 +438,7 @@
 			   <option value="T39">T39: Dominica pentecostes</option>
 			   <option value="T40">T40: In festo sancti Trinitatis</option>
 			   <option value="T41">T41: Dominica 1 post Pentecoste</option>
+			   <option value="T41/5">T41/5: In festo ss. Corporis Christi</option>
 			   <option value="T42">T42: Dominica 2 post Pentecoste</option>
 			   <option value="T43">T43: Dominica 3 post Pentecoste</option>
 			   <option value="T44">T44: Dominica 4 post Pentecoste</option>
@@ -339,6 +453,62 @@
 			   <option value="T53">T53: Dominica 13 post Pentecoste</option>
                <option value="T64">T64: Dominica 14 post Pentecoste</option>
                <option value="T65">T65: Dominica 25 post Pentecoste</option>
+
+	<option value="S1">S1 Andrea</option>															<option value="S2">S2 Eligio</option>
+	<option value="S3">S3 Nicolao</option>															<option value="S4">S4 Ambrosio</option>
+	<option value="S5">S5 In conceptione immac. BMV</option>					<option value="S6">S6 Eulalia</option>	
+	<option value="S7">S7 Lucia</option>																<option value="S8">S8 Thoma apostolo</option>
+	<option value="S9">S9 Stephano</option>   													<option value="S10">S10 Iohanne apostolo</option>
+	<option value="S11">S11 Innocentibus</option>											<option value="S12">S12 Thoma martyre</option>
+	<option value="S13">S13 Silvestro</option>													<option value="S14">S14 Genoveva</option> 
+	<option value="S15">S15 Hilario</option>														<option value="S16">S16 Antonio Abbate</option>
+	<option value="S17">S17 Fabiano et Sebastiano</option>							<option value="S18">S18 Agnete</option>
+	<option value="S19">S19 Vincentio</option>													<option value="S20">S20 In conversione sancti Pauli</option>
+	<option value="S21">S21 In purificatione BMV</option>							<option value="S22">S22 Matthia</option>	
+	<option value="S23">S23 Gregorio</option>												   <option value="S26">S26 Benedicto</option>
+	<option value="S27">S3 Juliano</option>														   <option value="S28">S28 In anuntiatione BMV</option>
+	<option value="S29">S29 Georgio</option>														<option value="S30">S30 Marco</option>  
+	<option value="S31">S31 Petro martyre</option>  										<option value="S32">S32 Philippo et Iacobo</option>
+	<option value="S33">S33 In inventione sanctae crucis</option>					<option value="S34">S34 In festo corona spinarum</option>
+	<option value="S35">S35 de s. Iohanem ante portam latinam</option>	<option value="S36">S36 In apparitione s. Michaelis</option>	
+	<option value="S37">S37 In translatione s. Nicolai</option>							<option value="S38">S38 In translatione s. Dominici</option>
+	<option value="S39">S39 In translatione s. Francisci</option>						<option value="S40">S40 Barnaba</option>
+	<option value="S41">S41 Antonio confesore</option>										<option value="S42">S42 Vito</option>
+	<option value="S43">S43 Gervasio et Prothasio</option>								<option value="S44">S44 Iohanne Baptista</option>
+	<option value="S45">S45 Iohanne et Paulo</option>										<option value="S46">S46 Petro et Paulo</option>
+	<option value="S46/2">S46/2 In commrmorarione S. Pauli</option>			<option value="S47">S47 Margareta</option>
+	<option value="S48">S48 Victore</option>															<option value="S49">S49 Maria Magdalena</option>
+	<option value="S50">S50 Iacobo</option>															<option value="S51">S51 Germano</option>
+	<option value="S52">S52 Petro ad vincula</option>											<option value="S53">S53 In inventione s. Stephani</option>
+	<option value="S54">S54 Dominico</option>														<option value="S55">S55 In transfiguratione Domini</option>
+	<option value="S56">S56 Laurentio</option>														<option value="S57">S57 Clara</option>
+	<option value="S58">S58 Hippolito</option>														<option value="S59">S59 In assumptione BMV</option>
+	<option value="S60">S60 Bernardo</option>														<option value="S61">S61 Bartholomeo</option>
+	<option value="S62 - Ludovico rex">S62 Ludovico rege</option>			<option value="S62 - Ludovico episcopo">S62 Ludovico episcopo</option>
+	<option value="S63">S63 Augustino</option>														<option value="S64">S64 In decollatione s. Ioannis Baptiste</option>
+	<option value="S65">S65 In Nativitate BMV</option>										<option value="S66">S66 In exaltatione sanctae crucis</option>
+	<option value="S67">S67 Matthaeo</option>														<option value="S68">S68 Mauritio</option>
+	<option value="S69">S69 Cosma et Damiano</option>									<option value="S70">S70 Michaele</option>
+	<option value="S71">S71 Hieronymo</option>													<option value="S72">S72 Remigio</option>
+	<option value="S73">S73 Francisco</option>														<option value="S74">S74 Dionisio</option>
+	<option value="S75">S75 Luca</option>																<option value="S76">S76 Maglorio</option>
+	<option value="S77">S77 Ursula et de XI milia </option>									<option value="S78">S78 Simone et Iuda</option>
+	<option value="S79">S79 Omnibus sanctis</option>											<option value="S80">S80 Omnium fidelium defunctorum</option>
+	<option value="S81">S81 Martino</option>															<option value="S82">S82 Elisabetha</option>
+	<option value="S83">S83 Caecilia</option>															<option value="S84">S84 Clemente</option>
+	<option value="S85">S85 Cataharina</option>
+
+     <option value="C1">C1 De patriarchis et prophetis</option>					    <option value="C2">C2 Apostolo, apostolis</option>
+	 <option value="C3">C3 Evangelista, evangelistis</option>							<option value="C4">C4 Uno martyre</option>
+	 <option value="C5">C5 Pluribus martyribus</option>								        <option value="C6">C6 Uno confessore</option>
+	 <option value="C7">C7 Pluribus confesoribus</option>						     <option value="C8">C8 Una virgine</option>
+	 <option value="C9">C9 Pluribus virginibus</option>	     <option value="C10">C10 Muliere non virgine, mulieribus non virginibus </option>
+	 <option value="C11">C11 In dedicatione ecclesiae</option> 				     <option value="C12">C12 In consacratione altaris</option>
+     <option value="C13">C13 In benedictionibus</option>		 <option value="C14">C14 in synodo. Ad prelatos, sacerdotes, clerum</option>
+	 <option value="C15">C15 In electione (et confirmatione) episcopi, praelati</option>         <option value="C16">C16 In ordinibus</option>
+	 <option value="C17">C17 In prima missa, de sacerdote novo</option>	     <option value="C18">C18 In ingressu ad religionem. In consecratione virginum. Ad moniales</option>								     <option value="C19">C19 In visitatione (inquisitione) domus religiosae. Ad religiosos, religiosas. In visitatione populi</option>							     <option value="C20">C20 In omni necessitate</option>
+	      <option value="Pro pluvia">Pro pluvia</option>
+			<option>In festo sancti Gregorii</option>
 			</datalist>
 			<br/><input name="feast" id="feast" type="button" class="btn" value="Search" onclick="resetfeast()" />		   
 	     </td>
@@ -348,11 +518,12 @@
 	       <select name="tipo" id="tipo" class="btn" onchange="afegit()">
 		         <option>Choose text</option>
 				 <option value="ars">Ars praedicandi</option>
+				 <option value="distinctio">Distinctiones</option>
 				 <!-- <option value="milagro">Milagros</option> -->
-				 <option value="ejemplo">Exemplae</option>
+				 <option value="ejemplo">Exempla</option>
 				 <!-- <option value="enciclopedia">Enciclopedias</option> -->
 		   </select>
-	  </td></tr>
+	  </form></td></tr>
    </table>
 </form>
 </div>
@@ -360,6 +531,11 @@
     <p id="respostatext"></p>
     <p id="respostatag"></p>
 	<p id="tagindoc"></p>
-<table border="0" align="center"><tr><td style="text-align: center;">&#169 PredMed 2019 <br/>Webmaster: <a href="mailto:predmed@upf.edu">predmed@upf.edu</a><br/>Last update: 18/09/2019</td></tr></table>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<table border="0" align="center" style="width: 70%">
+<tr><td colspan="3" style="text-align: center;">Suggestions and support at: <a href="mailto:predmed@upf.edu">predmed@upf.edu</a> - Last update: 15/06/2021</td></tr>
+<tr><td style="text-align: center; font-size. 10px;">This DB is funded by the project PGC2018-093472-B-C32 del FEDER/MICIU/AEI: "Escribir identidades y alteridades religiosas, transculturales y de género en el Mediterráneo medieval y moderno"</td>
+<td style="text-align: center;"><img src="logo_minis.jpg" width="100%" height="100%"></td><td style="text-align: center;"><img src="logo_upf-300x101.png" width="100%" height="100%"></td></tr>
+</table>
 	</body>
 </html>

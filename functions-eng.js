@@ -7,7 +7,7 @@ var curfeast="1"; //feast
 var curauthor="1";
 
 function carregatext() {
-  var elsermo, satribut, xhttp, xmlDoc, atrib, casum, resposta;
+  var elsermo, satribut, xhttp, xmlDoc, mssermo, atrib;
   var elsermo="text.xml";
   var satribut = document.FormContent.atribut.value; // = atribut buscat
   if (window.XMLHttpRequest) {
@@ -20,7 +20,7 @@ function carregatext() {
       xmlDoc=xhttp.responseXML;
       mssermo = xmlDoc.getElementsByTagName("ms");
       atrib = xmlDoc.getElementsByTagName("sermo");
-	  document.getElementById("contador").innerHTML = "Para facilitar la b&#250;squeda, puede consultar <a href='info.html' target='_blank'> M&#225s informaci&#243n</a> y listados de <a href='manuscritos.html' target='_blank'>manuscritos</a> y <a href='feasts.html' target='_blank'>festividades</a>. Actualmente hay " + mssermo.length + " manuscritos y " + atrib.length + " sermones en la base de datos.";
+	  document.getElementById("contador").innerHTML = "To make the search easier, you can read <a href='infoeng.html' target='_blank'> More information</a> and the lists of <a href='manuscripts.html' target='_blank'>manuscripts</a> and <a href='feasts.html' target='_blank'>feasts</a>. There are nowadays " + mssermo.length + " manuscripts and " + atrib.length + " sermons in the DB.";
 	  }
    }
   xhttp.open("GET", elsermo, true);
@@ -28,7 +28,7 @@ function carregatext() {
 }
 
 function llistat() {
-  var elsermo, satribut, xhttp, xmlDoc, mssermo, ms1, ms2, ms3, d, vell2;
+  var elsermo, xhttp, xmlDoc, mssermo, ms1, ms2, ms3, d, vell2;
   var elsermo="text.xml";
   text="";
 
@@ -42,15 +42,13 @@ function llistat() {
       xmlDoc=xhttp.responseXML;
       mssermo = xmlDoc.getElementsByTagName("ms");
 	  resposta = mssermo.length;
-      document.getElementById("prova").innerHTML = "Los " + resposta + " manuscritos de la base de datos son los siguientes:";
+      document.getElementById("prova").innerHTML = "There are " + resposta + " manuscripts in the Database";
 	  for (s = 0; s < resposta; s++) {
 	  ms1=  xmlDoc.getElementsByTagName("ms")[s].getAttribute("settlement");
 	  ms2=  xmlDoc.getElementsByTagName("ms")[s].getAttribute("repository");
  	  ms3=  xmlDoc.getElementsByTagName("ms")[s].getAttribute("idno");
-	  
 	  text += (s+1) + ". " + ms1 + ", " + ms2 + ", " + ms3 + "<br/>";
       document.getElementById("contador").innerHTML = text;
-	
 	     }
       }
    }
@@ -67,7 +65,7 @@ function resetcurpages() { // linka a author()
 	curpages="1";
 	text="";
 	if ( document.FormContent.pred.value == "") {
-		document.getElementById("tagindoc").innerHTML = "Por favor, rellena para poder buscar";
+		document.getElementById("tagindoc").innerHTML = "Please, fill up the form.";
 		return;
 	} else { author () }
 }
@@ -77,18 +75,18 @@ function resetms() {
 	document.getElementById("respostatag").innerHTML = "";
 	document.getElementById("tagindoc").innerHTML = "";
 	if ( document.FormContent.ms.value == "") {
-		document.getElementById("tagindoc").innerHTML = "Por favor, rellena para poder buscar";
+		document.getElementById("tagindoc").innerHTML = "Please, fill up the form.";
 		return;
-	} else { manuscrit() }
+	} else {
+	manuscrit() }
 }
 
 function resetcont() {
 	document.getElementById("tagindoc").innerHTML="";
 	document.getElementById("respostatag").innerHTML = "";
-	text=""
 	curpage="1";
-	if ( document.FormContent.atribut.value == "") {
-		document.getElementById("tagindoc").innerHTML = "Por favor, rellena para poder buscar";
+		if ( document.FormContent.atribut.value == "") {
+		document.getElementById("tagindoc").innerHTML = "Please, fill up the form.";
 		return;
 	} else { continguts () }
 }
@@ -98,13 +96,13 @@ function resetfeast() {
 	document.getElementById("respostatag").innerHTML = "";
 	curfeast="1";
 	if ( document.FormContent.feast.value == "") {
-		document.getElementById("tagindoc").innerHTML = "Por favor, rellena para poder buscar";
+		document.getElementById("tagindoc").innerHTML = "Please, fill up the form";
 		return;
 	} else { feast () }
 }
 
-function provaatributs() {
-  var elsermo, satribut, xhttp, xmlDoc, coincid, coinc, resperpage, s, atrib, resposta, switching;
+function provaatributs() { // cerca de predicadors a través de resetcurpages
+  var elsermo, satribut, xhttp, xmlDoc, coincid, coinc, respperpage, s, atrib, resposta, switching;
   document.getElementById("respostatext").innerHTML = "";
   document.getElementById("tagindoc").innerHTML = "";	
   elsermo = "text.xml";
@@ -125,7 +123,7 @@ function provaatributs() {
 	  resposta = atrib.length;
 	  coincid="0";
 	  coinc="0";
-	  resperpage = "5";
+	  respperpage = "5";
 	  s="0";
 	 // calcula el número de resultats i les pagines a mostrar
 	 for (d = 0; d < resposta; d++) {  //Repassa totes les etiquetes i obté l'atribut desitjat
@@ -135,13 +133,13 @@ function provaatributs() {
 		 coincid++
              }
 		 }
-	   var pagines =  Math.ceil (coincid/resperpage);
+	   var pagines =  Math.ceil (coincid/respperpage);
        // Busca les respostes (atributs) i les mostra per pantalla	   
-	   var minpag = (((curpage-1) * resperpage)+1);
-	   var maxpag = curpage * resperpage;
+	   var minpag = (((curpage-1) * respperpage)+1);
+	   var maxpag = curpage * respperpage;
 	   for (s = 0; s < resposta; s++) {
 	   var casos = xmlDoc.getElementsByTagName("cit")[s].getAttribute(satribut);
-	   var same1 = xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("same1");
+	   var same1 = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("same1");
 	   var sipdf = xmlDoc.getElementsByTagName("cit")[s].parentNode.getAttribute("pdf");
          if  (coincid == 0) {
 		 text = "La base de datos no contiene sermones para este Thema";
@@ -159,11 +157,11 @@ function provaatributs() {
 			text += "<hr/><table border='0' width='90%'><tr><td width='15%'>Thema:</td><td>" + casos + ": " + atrib[s].innerHTML + "</td></tr><tr><td width='10%'>Author</td><td>" + atrib[s].parentNode.getAttribute("author") + "</td></tr><tr><td width='25%'>Location</td><td>" + atrib[s].parentNode.getAttribute("settlement") + ", " + atrib[s].parentNode.getAttribute("repository") + ", " + atrib[s].parentNode.getAttribute("idno") + "</td></tr></table>";
 			
 			if (same1>"") {
-				 textms += "<table border='0' width='90%'><tr><td width='15%'>El mismo serm&#243;n en:</td><td>" + atrib[msc].getAttribute("same1") + "</td></tr></table>";
+				 textms += "<table border='0' width='90%'><tr><td width='15%'>The same sermon in:</td><td>" + atrib[msc].getAttribute("same1") + "</td></tr></table>";
 			 } else {textms += ""; }
 			
 			if ( sipdf !="") {
-				 text += "<table border='0' width='90%'><tr><td width='15%'>Electronic edition:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>Ver PDF</a></td></tr></table>";
+				 text += "<table border='0' width='90%'><tr><td width='15%'>Electronic edition:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>See PDF</a></td></tr></table>";
 			 } else {
 				}
 				
@@ -177,7 +175,7 @@ function provaatributs() {
 		    // <button class='btn' onclick='window.location.href=''" + atrib[s].parentNode.getAttribute('web') + "''>View on screen</button>
 			
 			if ( sipdf !="") {
-				 text += "<table border='0' width='90%'><tr><td width='15%'>Electronic edition:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>Ver PDF</a></td></tr></table>";
+				 text += "<table border='0' width='90%'><tr><td width='15%'>Electronic edition:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>See PDF</a></td></tr></table>";
 			 } else {
 				}
 			
@@ -186,14 +184,13 @@ function provaatributs() {
 	 
 	  if (pagines == 0) {
 		 } else if (pagines == 1 && curpage == 1) { // Si has arribat al final de la primera pàgina i només hi ha una pàgina. No posar  fletxes
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + coincid + " de " + coincid + " - P&#225;gina " + curpage + " of " + pagines;
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + coincid + " of " + coincid + " - Page " + curpage + " of " + pagines;
 		 } else if (curpage == 1) { // Si has arribat al final de la primera pàgina. En aquesta secci&#243; s'ha de posar les fletxes
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + maxpag + " de " + coincid + " - P&#225;gina " + curpage + " of " + pagines + "  <button class ='btn' onclick='mesu()'> Siguiente </button></td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + maxpag + " of " + coincid + " - Page " + curpage + " of " + pagines + "  <button class ='btn' onclick='mesu()'> Next </button></td></tr></table>";
 		 } else if (curpage == pagines) { // Si has arribat al final de les respostes = al final de la última pàgina
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + coincid + " de " + coincid + " - P&#225;gina " + curpage + " of " + pagines + "  <button class ='btn' onclick='menysu()'> Anterior </button></td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + coincid + " of " + coincid + " - Page " + curpage + " of " + pagines + "  <button class ='btn' onclick='menysu()'> Previous </button></td></tr></table>";
 		 } else {
-		    document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + maxpag + " de " + coincid + " - P&#225;gina " + curpage + " of " + pagines + "  <button class ='btn' onclick='menysu()'> Anterior </button>&nbsp;&nbsp;<button class ='btn' onclick='mesu()'> Siguiente </button> </td> </tr> </table>";
-		    }
+		    document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + maxpag + " of " + coincid + " - Page " + curpage + " of " + pagines + "  <button class ='btn' onclick='menysu()'> Previous </button>&nbsp;&nbsp;<button class ='btn' onclick='mesu()'> Next </button> </td> </tr> </table>"; }
          }
       }
    }
@@ -219,7 +216,7 @@ function toend () {
 	provaatributs()
 }
 
-function continguts () {    // cerca thema via resetcont()
+function continguts () {    // ve de la cerca thema via resetcont()
   document.getElementById("respostatext").innerHTML="";
   document.getElementById("tagindoc").innerHTML = "";
   var elsermo, satribut, paraula, xhttp, xmlDoc, text, atrib, casum, resposta;
@@ -250,18 +247,19 @@ function continguts () {    // cerca thema via resetcont()
       for (countms = 0; countms < resposta; countms++) {
 		 var msnum = xmlDoc.getElementsByTagName("cit")[countms].getAttribute("thema_verse");
 		 if  (msnum == paraula) {
-		 		 numms++ // Això conta el número de thema_verse
+		 		 numms++
 		   }
 		}
-
+		
        var pagines = Math.ceil (numms/resperpage);
 	   var minpag = (((curms-1) * resperpage)+1);
 	   var maxpag = curms * resperpage;
 	  	   
       for (d = 0; d < resposta; d++) {
 	     var casum = xmlDoc.getElementsByTagName("cit")[d].getAttribute("thema_verse");
-  	     var siauthor = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("author");
-  	     var sipdf = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("pdf");
+		 var siauthor = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("author");
+		 var sipdf = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("pdf");
+         var siauthor = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("author");
 		 var sisettlement = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("settlement");
 		 var sisettlement2 = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("settlement2");
 		 var sisettlement3 = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("settlement3");
@@ -272,7 +270,7 @@ function continguts () {    // cerca thema via resetcont()
 		 var sisettlement8 = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("settlement8");
 		 var sisettlement9 = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("settlement9");
 		 var sisettlement10 = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("settlement10");
-         var sieditor = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("editor");
+ 		 var sieditor = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("editor");
 
          var sisame1 = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("same1");
          var sisame2 = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("same2");
@@ -282,13 +280,14 @@ function continguts () {    // cerca thema via resetcont()
          var sisame6 = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("same6");
          var sisame7 = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("same7");
          var sisame8 = xmlDoc.getElementsByTagName("cit")[d].parentNode.getAttribute("same8");
+		 
 		 		 
-		 if  (curms == 1 && casum == paraula && coincid < maxpag) { // Suma 1 a la primera pàgina
+		 if  (curms == 1 && casum == paraula && coincid < maxpag) {
 		   	coincid++
-
-			text += "<hr/><table border='0' width='90%'><tr><td width='15%'>Thema: </td><td>" + atrib[d].getAttribute("thema_verse") + ": " + atrib[d].innerHTML + "</td></tr></table>";
-			if (siauthor) {text += "<table border='0' width='90%'><tr><td width='15%'>Autor:</td><td>" + atrib[d].parentNode.getAttribute("author") + "</td></tr></table>";}
-			if (sisettlement) {text += "<table border='0' width='90%'><tr><td width='15%'>Localizaci&#243;n:</td><td>" + atrib[d].parentNode.getAttribute("settlement") + ", " + atrib[d].parentNode.getAttribute("repository") + ", " + atrib[d].parentNode.getAttribute("idno") + "</td></tr></table>";}
+			
+			text += "<hr/><table border='0' width='90%'><tr><td width='15%'>Thema: </td><td>" + atrib[d].innerHTML + "</td></tr></table>";
+			if (siauthor) {text += "<table border='0' width='90%'><tr><td width='15%'>Author:</td><td>" +	atrib[d].parentNode.getAttribute("author") + "</td></tr></table>";}
+			if (sisettlement) {text += "<table border='0' width='90%'><tr><td width='15%'>Localization:</td><td>" + atrib[d].parentNode.getAttribute("settlement") + ", " + atrib[d].parentNode.getAttribute("repository") + ", " + atrib[d].parentNode.getAttribute("idno") + "</td></tr></table>";}
 			if (sisettlement2) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("settlement2") + atrib[d].parentNode.getAttribute("repository2") + atrib[d].parentNode.getAttribute("idno2") + atrib[d].parentNode.getAttribute("folio2") + "</td></tr></table>";}
 			if (sisettlement3) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("settlement3") + atrib[d].parentNode.getAttribute("repository3") + atrib[d].parentNode.getAttribute("idno3") + atrib[d].parentNode.getAttribute("folio3") + "</td></tr></table>";}
 			if (sisettlement4) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("settlement4") + atrib[d].parentNode.getAttribute("repository4") + atrib[d].parentNode.getAttribute("idno4") + atrib[d].parentNode.getAttribute("folio4") + "</td></tr></table>";}
@@ -298,10 +297,10 @@ function continguts () {    // cerca thema via resetcont()
 			if (sisettlement8) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("settlement8") + atrib[d].parentNode.getAttribute("repository8") + atrib[d].parentNode.getAttribute("idno8") + atrib[d].parentNode.getAttribute("folio8") + "</td></tr></table>";}
 			if (sisettlement9) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("settlement9") + atrib[d].parentNode.getAttribute("repository9") + atrib[d].parentNode.getAttribute("idno9") + atrib[d].parentNode.getAttribute("folio9") + "</td></tr></table>";}
 			if (sisettlement10) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("settlement10") + atrib[d].parentNode.getAttribute("repository10") + atrib[d].parentNode.getAttribute("idno10") + atrib[d].parentNode.getAttribute("folio10") + "</td></tr></table>";}
-            if (sieditor) {text += "<table border='0' width='90%'><tr><td width='15%'>Edici&#243;n</td><td>" + atrib[d].parentNode.getAttribute("editor") + ", <i>" + atrib[d].parentNode.getAttribute("title") + "</i>. " + atrib[d].parentNode.getAttribute("pubPlace") + ", " + atrib[d].parentNode.getAttribute("publisher") + ", "+ atrib[d].parentNode.getAttribute("date") + ", p. " +atrib[d].parentNode.getAttribute("pags") + "</td></tr></table>";}
-			if (sipdf !="") {text += "<table border='0' width='90%'><tr><td width='15%'>Edici&#243;n electr&#243;nica</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>Ver PDF</a></td></tr></table>";}
+			if (sieditor) {text+="<table border='0' width='90%'><tr><td width='15%'>Edition:</td><td>" + atrib[d].parentNode.getAttribute("editor") + ", <i>" + atrib[d].parentNode.getAttribute("title") + "</i>. " + atrib[d].parentNode.getAttribute("pubPlace") + ", " + atrib[d].parentNode.getAttribute("publisher") + ", " + atrib[d].parentNode.getAttribute("date") + ", p. " + atrib[d].parentNode.getAttribute("pags") + "</td></tr></table>";}
+			if ( sipdf !="") {text += "<table border='0' width='90%'><tr><td width='15%'>Electronic edition:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>See PDF</a></td></tr></table>";}
 
-			if (sisame1) {text += "<table border='0' width='90%'><tr><td width='15%'>El mismo serm&#243;n en:</td><td>" + atrib[d].parentNode.getAttribute("same1") + "</td></tr></table>";}
+			if (sisame1) {text += "<table border='0' width='90%'><tr><td width='15%'>The same sermon in:</td><td>" + atrib[d].parentNode.getAttribute("same1") + "</td></tr></table>";}
 			if (sisame2) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("same2") + "</td></tr></table>";}
 			if (sisame3) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("same3") + "</td></tr></table>";}
 			if (sisame4) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("same4") + "</td></tr></table>";}
@@ -309,16 +308,16 @@ function continguts () {    // cerca thema via resetcont()
 			if (sisame6) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("same6") + "</td></tr></table>";}
 			if (sisame7) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("same7") + "</td></tr></table>";}
 			if (sisame8) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("same8") + "</td></tr></table>";}
-
+					
 			document.getElementById("tagindoc").innerHTML = "<table><tr></tr></table>" + text;
 		 	   } else if  (curms > 1 && casum == paraula && coincid < minpag) { // Quan casos < minpag no imprimeixis els resultats pero suma 1 a coinc
 			coincid++ 
 		 }
          // <a href class='btn'=" + atrib[d].parentNode.getAttribute("web") + " target = '_blank'>Link</a>
- 		 
-		 if  (curms > 1 && casum == paraula && coincid >= minpag && coincid <= maxpag) { // Les 'normals' a partir de la pàgina 2. Suma 1 
+		 
+ 		 if  (curms > 1 && casum == paraula && coincid >= minpag && coincid <= maxpag) { // Les 'normals' a partir de la pàgina 2
             coincid++
-
+			
 			text += "<hr/><table border='0' width='90%'><tr><td width='15%'>Thema: </td><td>" + atrib[d].getAttribute("thema_verse") + ": " + atrib[d].innerHTML + "</td></tr></table>";
 			if (siauthor) {text += "<table border='0' width='90%'><tr><td width='15%'>Autor:</td><td>" + atrib[d].parentNode.getAttribute("author") + "</td></tr></table>";}
 			if (sisettlement) {text += "<table border='0' width='90%'><tr><td width='15%'>Localizaci&#243;n:</td><td>" + atrib[d].parentNode.getAttribute("settlement") + ", " + atrib[d].parentNode.getAttribute("repository") + ", " + atrib[d].parentNode.getAttribute("idno") + "</td></tr></table>";}
@@ -333,8 +332,8 @@ function continguts () {    // cerca thema via resetcont()
 			if (sisettlement10) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("settlement10") + atrib[d].parentNode.getAttribute("repository10") + atrib[d].parentNode.getAttribute("idno10") + atrib[d].parentNode.getAttribute("folio10") + "</td></tr></table>";}
             if (sieditor) {text += "<table border='0' width='90%'><tr><td width='15%'>Edici&#243n</td><td>" + atrib[d].parentNode.getAttribute("editor") + ", <i>" + atrib[d].parentNode.getAttribute("title") + "</i>. " + atrib[d].parentNode.getAttribute("pubPlace") + ", " + atrib[d].parentNode.getAttribute("publisher") + ", "+ atrib[d].parentNode.getAttribute("date") + ", p. " +atrib[d].parentNode.getAttribute("pags") + "</td></tr></table>";}
 			if (sipdf !="") {text += "<table border='0' width='90%'><tr><td width='15%'>Edici&#243;n electr&#243;nica:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>Ver PDF</a></td></tr></table>";}
-
-			if (sisame1) {text += "<table border='0' width='90%'><tr><td width='15%'>El mismo serm&#243;n en:</td><td>" + atrib[d].parentNode.getAttribute("same1") + "</td></tr></table>";}
+			
+			if (sisame1) {text += "<table border='0' width='90%'><tr><td width='15%'>The same sermon in:</td><td>" + atrib[d].parentNode.getAttribute("same1") + "</td></tr></table>";}
 			if (sisame2) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("same2") + "</td></tr></table>";}
 			if (sisame3) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("same3") + "</td></tr></table>";}
 			if (sisame4) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("same4") + "</td></tr></table>";}
@@ -342,21 +341,21 @@ function continguts () {    // cerca thema via resetcont()
 			if (sisame6) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("same6") + "</td></tr></table>";}
 			if (sisame7) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("same7") + "</td></tr></table>";}
 			if (sisame8) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[d].parentNode.getAttribute("same8") + "</td></tr></table>";}
-
+			
 	        document.getElementById("tagindoc").innerHTML = "<table><tr></tr></table>" + text;
 		  }
-		 		 
-		if  (pagines == 1 && coincid == 0) {document.getElementById("respostatext").innerHTML = "La base de datos no contiene sermones para este thema.";
+		
+		if  (pagines == 1 && coincid == 0) {document.getElementById("respostatext").innerHTML = "The DB hosts no sermons for this author.";
 		 } else if (pagines == 1 && curms ==1) { // Si estàs (al final de la) primera pàgina i només hi ha una pàgina. No posar  fletxes
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + coincid + " de " + numms + " - P&#225;gina " + curms + " de " + pagines + "</td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + coincid + " of " + numms + " - Page " + curms + " of " + pagines + "</td></tr></table>";
 		 } else if (curms == 1) { // Si has arribat al final de la primera pàgina, només fletxa Next
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + maxpag + " de " + numms + " - P&#225;gina " + curms + " de " + pagines + "  <button class='btn' onclick='mesthema()'> Siguiente </button>  </td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + maxpag + " of " + numms + " - Page " + curms + " of " + pagines + "  <button class='btn' onclick='mesthema()'> Next </button></td></tr></table>";
 		 } else if (curms == pagines && coincid > numms) { // Si has arribat al final de les respostes = al final de la última pàgina, només fletxa Prev
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td><button class='btn' onclick='menysthema()'> Anterior </button> Resultados " + minpag + " a " + numms + " de " + numms + " - P&#225;gina " + curms + " de " + pagines + "  </td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> <button class='btn' onclick='menysthema()'> Previous </button>&nbsp;&nbsp; " + minpag + " to " + numms + " of " + numms + " - Page " + curms + " of " + pagines + "  </td></tr></table>";
 		 }  else if (curms == pagines) { // Si has arribat al final de les respostes = al final de la última pàgina, només fletxa Prev
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + numms + " de " + numms + " - P&#225;gina " + curms + " de " + pagines + "  <button class='btn' onclick='menysthema()'> Anterior </button></td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td>  <button class='btn' onclick='menysthema()'> Previous </button>&nbsp;&nbsp; " + minpag + " to " + numms + " of " + numms + " - Page " + curms + " of " + pagines + " </td></tr></table>";
 		 } else {
-		    document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td><button class='btn' onclick='menysthema()'> Anterior </button> Resultados " + minpag + " a " + numms + " de " + numms + " - P&#225;gina " + curms + " de " + pagines + "  &nbsp;&nbsp;<button class='btn' onclick='mesthema()'> Siguiente </button> </td> </tr> </table>";
+		    document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td>  <button class='btn' onclick='menysthema()'> Previous </button>&nbsp;&nbsp; " + minpag + " to " + maxpag + " of " + numms + " - Page " + curms + " of " + pagines + "&nbsp;&nbsp;<button class='btn' onclick='mesthema()'> Next </button> </td> </tr> </table>";
 		       }
 		    }
 		 }
@@ -383,19 +382,23 @@ function afegit () {
 	
   		for (respo = 0; respo < resp.length; respo++) {
         var respi = xmlDoc.getElementsByTagName(valor)[respo];
-		text += "<table border='0' width='90%'><tr><td width='15%'>T&#237;tulo</td><td>" + respi.getAttribute("titol") + "</td></tr><tr><td width='15%'>Autor</td><td>" + respi.getAttribute("author") + "</td></tr><tr><td>Localizaci&#243;n</td><td>" + respi.getAttribute("settlement") + ", " + respi.getAttribute("repository") + ", " + respi.getAttribute("idno") + "</td></tr></table>";
+		text += "<table border='0' width='90%'><tr><td width='15%'>Title</td><td>" + respi.getAttribute("titol") + "</td></tr><tr><td width='15%'>Author</td><td>" + respi.getAttribute("author") + "</td></tr><tr><td>Localization</td><td>" + respi.getAttribute("settlement") + ", " + respi.getAttribute("repository") + ", " + respi.getAttribute("idno") + "</td></tr></table>";
 
 		if  ( respi.getAttribute("settlement2") >"") {
-			text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + respi.getAttribute("settlement2") + ", " + respi.getAttribute("repository2") + ", " + respi.getAttribute("idno2")  + "</td></tr></table>";}	 else { text +="";}
+			text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + respi.getAttribute("settlement2") + ", " + respi.getAttribute("repository2") + ", " + respi.getAttribute("idno2")  + "</td></tr></table>";
+			}	else { text +="";}
 			
 		if  ( respi.getAttribute("editor") >"") {
-			text += "<table border='0' width='90%'><tr><td width='15%'>Edici&#243;n</td><td>" + respi.getAttribute("editor") + ", " + respi.getAttribute("title") + "</td></tr></table>";}	 else { text +="";}
+			text += "<table border='0' width='90%'><tr><td width='15%'>Edition</td><td>" + respi.getAttribute("editor") + ", " + respi.getAttribute("title") + "</td></tr></table>";
+			}	else { text +="";}
 
 		if  ( respi.getAttribute("bibliografia") >"") {
-			text += "<br/><table border='0' width='90%'><tr><td width='15%'>Bibliograf&#237;a</td><td>" + respi.getAttribute("bibliografia") + "</td></tr></table>";}	 else { text +="";}
+			text += "<br/><table border='0' width='90%'><tr><td width='15%'>Bibliography</td><td>" + respi.getAttribute("bibliografia") + "</td></tr></table>";
+			}	else { text +="";}
 
-		if  ( respi.getAttribute("infoesp") >"") {
-			text += "<br/><table border='0' width='90%'><tr><td width='15%'>M&#225;s informaci&#243;n</td><td>" + respi.getAttribute("infoesp") + "</td></tr></table>";}	 else { text +="";}
+		if  ( respi.getAttribute("infoeng") !="") {
+			text += "<br/><table border='0' width='90%'><tr><td width='15%'>More information</td><td>" + respi.getAttribute("infoeng") + "</td></tr></table>";
+			}	 else { text +="";}
 				
 		text += "<hr/>"
 		document.getElementById("tagindoc").innerHTML = text;
@@ -414,10 +417,10 @@ function manuscrit() { // ve de la cerca manuscrit via resetms
   var satribut = document.FormContent.manus.value; // = atribut buscat
   
   var niaono = document.querySelectorAll ([codims=satribut]);
-  if (niaono.value = "0") {
-	  document.getElementById("respostatag").innerHTML = "Este manuscrito no consta en la base de datos. Comprueba que esté bien escrito y vuelve a intentarlo"
-	  return;
-  }
+     if (niaono.value = "0") {
+	    document.getElementById("respostatag").innerHTML = "This manuscript does not appear in the DB. Please, check the spelling and try again."
+	    return;
+     }
   
   var paraula = document.getElementById("ms").value;
   if (window.XMLHttpRequest) {
@@ -429,7 +432,7 @@ function manuscrit() { // ve de la cerca manuscrit via resetms
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       xmlDoc = xhttp.responseXML;
       document.getElementById("respostatext").innerHTML = "";
-  	  //document.getElementById("respostatext").innerHTML = satribut;
+	  //document.getElementById("respostatext").innerHTML = xhttp.responseText;
 	  mssermo = xmlDoc.getElementsByTagName("ms");
       atrib = xmlDoc.getElementsByTagName("sermo");
 	  ars = xmlDoc.getElementsByTagName("ars");
@@ -447,23 +450,23 @@ function manuscrit() { // ve de la cerca manuscrit via resetms
  		sibib2 = xmlDoc.getElementsByTagName("ms")[d].getAttribute("bibliografia2");
  		siwebdig = xmlDoc.getElementsByTagName("ms")[d].getAttribute("webdig");
         siphilo = xmlDoc.getElementsByTagName("ms")[d].getAttribute("philo");
-        if (casum.value == "0" || null) {  // Primer recompte per saber quantes coincidències hi ha
-			document.getElementById("respostatag").innerHTML = "La base de datos todav&#237;a no contiene los sermones de este manuscrito. Esperamos a&#241;adirlos pr&#243;ximamente." + paraula + " --" + casum + "--" + mssermolength + "--" + siwebdig;} else if (casum == paraula) {
+        if (casum == null) {  // Primer recompte per saber quantes coincidències hi ha
+			document.getElementById("respostatag").innerHTML = "Sorry, there are no sermons in the DB for this manuscript." + paraula + " --" + casum + "--" + mssermolength + "--" + siwebdig;} else if (casum == paraula) {
 			text += "<table border='0' width='90%'><tr><td colspan='2'><b>" + mssermo[d].getAttribute("settlement") + ", " + mssermo[d].getAttribute("repository") + ", " + mssermo[d].getAttribute("idno") + "</b></td></tr></table>";
 
-		if (mssermo[d].getAttribute("author") !="") {text += "<table border='0' width='90%'><tr><td width='15%'>Autor:</td><td>" + mssermo[d].getAttribute("author") + "</td></tr></table>";}	 else {text += "";}
-		if (mssermo[d].getAttribute("author2") >"") {text += "<table border='0' width='90%'><tr><td width='15%'>Autor:</td><td>" + mssermo[d].getAttribute("author2") + "</td></tr></table>";}	 else {text += "";}
-		if (mssermo[d].getAttribute("author3") >"") {text += "<table border='0' width='90%'><tr><td width='15%'>Autor:</td><td>" + mssermo[d].getAttribute("author3") + "</td></tr></table>";}	 else {text += "";}
-		if (mssermo[d].getAttribute("author4") >"") {text += "<table border='0' width='90%'><tr><td width='15%'>Autor:</td><td>" + mssermo[d].getAttribute("author4") + "</td></tr></table>";}	 else {text += "";}
-		if (mssermo[d].getAttribute("author5") >"") {text += "<table border='0' width='90%'><tr><td width='15%'>Autor:</td><td>" + mssermo[d].getAttribute("author5") + "</td></tr></table>";}	 else {text += "";}
-		if (mssermo[d].getAttribute("msfecha") >"") {text += "<table border='0' width='90%'><tr><td width='15%'>Fecha:</td><td>" + mssermo[d].getAttribute("msfecha") + "</td></tr></table>";}	 else {text += "";}
-		if (mssermo[d].getAttribute("infoesp") >"") {text += "<table border='0' width='90%'><tr><td width='15%'>Informaci&#243n:</td><td>" + mssermo[d].getAttribute("infoesp") + "</td></tr></table>";}	else {text += "";}
-		if (mssermo[d].getAttribute("schneyer")>"") {text += "<table border='0' width='90%'><tr><td width='15%'>Schneyer:</td><td>" + mssermo[d].getAttribute("schneyer") + "</td></tr></table>";}	 else {text += "";}
-		if (mssermo[d].getAttribute("editor") >"") {text += "<table border='0' width='90%' ><tr><td width='15%'>Edici&#243n</td><td>" + mssermo[d].getAttribute("editor") + ", <i>" + mssermo[d].getAttribute("title") + "</i>. " + mssermo[d].getAttribute("pubPlace") + ", " + mssermo[d].getAttribute("publisher") + ", " + mssermo[d].getAttribute("pubDate") + "</td></tr></table>";} else {text += "";}
+		if (mssermo[d].getAttribute("author") >"") {text += "<table border='0' width='90%'><tr><td width='15%'>Author:</td><td>" + mssermo[d].getAttribute("author") + "</td></tr></table>";}	else {text += "";}
+		if (mssermo[d].getAttribute("author2") >"") {text += "<table border='0' width='90%'><tr><td width='15%'>Author:</td><td>" + mssermo[d].getAttribute("author2") + "</td></tr></table>";}	else {text += "";}
+		if (mssermo[d].getAttribute("author3") >"") {text += "<table border='0' width='90%'><tr><td width='15%'>Author:</td><td>" + mssermo[d].getAttribute("author3") + "</td></tr></table>";}	else {text += "";}
+		if (mssermo[d].getAttribute("author4") >"") {text += "<table border='0' width='90%'><tr><td width='15%'>Author:</td><td>" + mssermo[d].getAttribute("author4") + "</td></tr></table>";}	else {text += "";}
+		if (mssermo[d].getAttribute("author5") >"") {text += "<table border='0' width='90%'><tr><td width='15%'>Author:</td><td>" + mssermo[d].getAttribute("author5") + "</td></tr></table>";}	else {text += "";}
+		if (mssermo[d].getAttribute("msdate") >"") {text += "<table border='0' width='90%'><tr><td width='15%'>Date:</td><td>" + mssermo[d].getAttribute("msdate") + "</td></tr></table>";} else {text += "";}
+		if ( mssermo[d].getAttribute("infoeng")>"") {text += "<table border='0' width='90%'><tr><td width='15%'>Information:</td><td>" + mssermo[d].getAttribute("infoeng") + "</td></tr></table>";} else {}
+		if (mssermo[d].getAttribute("schneyer")>"") {text += "<table border='0' width='90%'><tr><td width='15%'>Schneyer:</td><td>" + mssermo[d].getAttribute("schneyer") + "</td></tr></table>";} else {text += "";}
+		if (mssermo[d].getAttribute("editor") >"") {text += "<table border='0' width='90%' ><tr><td width='15%'>Edition:</td><td>" + mssermo[d].getAttribute("editor") + ", <i>" + mssermo[d].getAttribute("title") + "</i>. " + mssermo[d].getAttribute("pubPlace") + ", " + mssermo[d].getAttribute("publisher") + ", " + mssermo[d].getAttribute("pubDate") + "</td></tr></table>";} else {text += "";}
 		if (mssermo[d].getAttribute("editor2") >"") {text += "<table border='0' width='90%' ><tr><td width='15%'></td><td>" + mssermo[d].getAttribute("editor2") + ", <i>" + mssermo[d].getAttribute("title2") + "</i>. " + mssermo[d].getAttribute("pubPlace2") + ", " + mssermo[d].getAttribute("publisher2") + ", " + mssermo[d].getAttribute("pubDate2") + "</td></tr></table>";} else {text += "";}
-		if (mssermo[d].getAttribute("bibliografia") >"") {text += "<table border='0' width='90%' ><tr><td width='15%'>Bibliograf&#237;a:</td><td>" + mssermo[d].getAttribute("bibliografia") + "</td></tr></table>";}	else { }
+		if (mssermo[d].getAttribute("bibliografia")>"") {text += "<table border='0' width='90%' ><tr><td width='15%'>Bibliography:</td><td>" + mssermo[d].getAttribute("bibliografia") + "</td></tr></table>";} else { }
 		if (sibib2) {text += "<table border='0' width='90%' ><tr><td width='15%'></td><td>" + mssermo[d].getAttribute("bibliografia2") + "</td></tr></table>";}
-		if (siwebdig) {text += "<table><tr><td><a href=" + mssermo[d].getAttribute("webdig") + " class='btn' target= '_blank'>Manuscrito digitalizado (Enlace o descarga directa)</a></td></tr></table>";}	
+		if (siwebdig) {text += "<table><tr><td><a href=" + mssermo[d].getAttribute("webdig") + " class='btn' target= '_blank'>Images</a></td></tr></table>";}	
 		if (siphilo) {text += "<table><tr><td><a href=" + mssermo[d].getAttribute("philo") + " class='btn' target= '_blank'>Philobiblon</a> </td></tr></table>";}
 
        	   		  document.getElementById("respostatag").innerHTML = text; 
@@ -495,31 +498,38 @@ function manuscrit() { // ve de la cerca manuscrit via resetms
 		 var same5 = xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("same5");
 		 var same6 = xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("same6");
 		 var same7 = xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("same7");
+		 var sidate=xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("date");
+		 var siplace=xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("place");	
 		 var sipdf = xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("pdf");
-		 var siinfoesp = xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("infoesp");
+		 var siinfoeng = xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("infoeng");
 		 var sibiblio = xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("bibliografia");
 		 var sibiblio2 = xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("bibliografia2");
 		 var sibiblio3 = xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("bibliografia3");
 		 var sischneyer = xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("schneyer");
 		 var siphilobiblon = xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("philobiblon");
+		 var siimg = xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("img");
 
-	 if (curms == 1 && casum == paraula && coincid < maxpag) { //Primera pàgina. No sé per què diferencio la primera pàgina
+	 if (curms == 1 && casum == paraula && coincid < maxpag) { //Primera pàgina
 		 	 coincid++
-		 textms += "<hr/><table border='0' width='90%'><tr><td width='15%'>Localizaci&#243;n:</td><td>" + atrib[msc].getAttribute("settlement") + ", " + atrib[msc].getAttribute("repository") + ", " + atrib[msc].getAttribute("idno") + "</td></tr></table>";
+		 textms += "<hr/><table border='0' width='90%'><tr><td width='15%'>Localization:</td><td>" + atrib[msc].getAttribute("settlement") + ", " + atrib[msc].getAttribute("repository") + ", " + atrib[msc].getAttribute("idno") + "</td></tr></table>";
 
-     if (atrib[msc].getAttribute("author") !="") {textms += "<table border='0' width='90%'><tr><td width='15%'> Autor:</td><td>" + atrib[msc].getAttribute("author") + "</td></tr></table>";} else {textms += "<table border='0' width='90%'><tr><td width='15%'> Autor:</td><td> An&#243;nimo </td></tr></table>";}
-	 if (atrib[msc].children[0].getAttribute("thema_verse") !="") {textms += "<table border='0' width='90%'><tr><td width='15%'> Thema:</td><td>" + atrib[msc].children[0].getAttribute("thema_verse") + ": " + atrib[msc].children[0].innerHTML  + "</td></tr></table>";} else {textms += "";}
+     if (atrib[msc].getAttribute("author") !="") {textms += "<table border='0' width='90%'><tr><td width='15%'> Author:</td><td>" + atrib[msc].getAttribute("author") + "</td></tr></table>";} else {textms += "<table border='0' width='90%'><tr><td width='15%'> Author:</td><td> Unknown </td></tr></table>";}
+     if (atrib[msc].children[0].getAttribute("thema_verse") !="") {textms += "<table border='0' width='90%'><tr><td width='15%'> Thema:</td><td>" + atrib[msc].children[0].getAttribute("thema_verse") + ": " + atrib[msc].children[0].innerHTML  + "</td></tr></table>";} else {textms += "";}
+
+	 if (sidate>"") {textms += "<table border='0' width='90%'><tr><td width='15%'>Date of delivery:</td><td>" + atrib[msc].getAttribute("date") + "</td></tr></table>";} else {textms += "";}
+	 if (siplace>"") {textms += "<table border='0' width='90%'><tr><td width='15%'>Place of delivery:</td><td>" + atrib[msc].getAttribute("place") + "</td></tr></table>";} else {textms += "";}	 
+
+	 if (xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("language")>"") {textms += "<table border='0' width='90%'><tr><td width='15%'> Language:</td><td>" + atrib[msc].getAttribute("language") + "</td></tr></table>";} else {textms += "";}
 	 if (siincipit>"") {textms += "<table border='0' width='90%'><tr><td width='15%'> Incipit:</td><td>" + atrib[msc].getAttribute("incipit") + "</td></tr></table>";} else {textms += "";}
-	 if (xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("incipit")>"") {textms += "<table border='0' width='90%'><tr><td width='15%'> Explicit:</td><td>" + atrib[msc].getAttribute("explicit") + "</td></tr></table>";} else {textms += "";}
-	 if (siinfoesp>"") {textms += "<table border='0' width='90%'><tr><td width='15%'> Informaci&#243;n:</td><td>" + atrib[msc].getAttribute("infoesp") + "</td></tr></table>";} else {textms += "";}
-	 if (sibiblio>"") {textms += "<table border='0' width='90%'><tr><td width='15%' valign='top'> Bibliograf&#237;a:</td><td>" + atrib[msc].getAttribute("bibliografia") + "</td></tr></table>";} else {textms += "";}
+ 	 if (xmlDoc.getElementsByTagName("sermo")[msc].getAttribute("explicit")>"") {textms += "<table border='0' width='90%'><tr><td width='15%'> Explicit:</td><td>" + atrib[msc].getAttribute("explicit") + "</td></tr></table>";} else {textms += "";}
+	 if (siinfoeng>"") {textms += "<table border='0' width='90%'><tr><td width='15%'> information:</td><td>" + atrib[msc].getAttribute("infoeng") + "</td></tr></table>";} else {textms += "";}
+	 if (sibiblio>"") {textms += "<table border='0' width='90%'><tr><td width='15%' valign='top'> Bibliography:</td><td>" + atrib[msc].getAttribute("bibliografia") + "</td></tr></table>";} else {textms += "";}
 	 if (sibiblio2>"") {textms += "<table border='0' width='90%'><tr><td width='15%' valign='top'></td><td>" + atrib[msc].getAttribute("bibliografia2") + "</td></tr></table>";} else {textms += "";}
  	 if (sibiblio3>"") {textms += "<table border='0' width='90%'><tr><td width='15%' valign='top'></td><td>" + atrib[msc].getAttribute("bibliografia3") + "</td></tr></table>";} else {textms += "";}
-	 if (atrib[msc].getAttribute("editor") >"") {textms += "<table border='0' width='90%'><tr><td width='15%'> Edici&#243;n:</td><td>" +  atrib[msc].getAttribute("editor") + ", <i>" + atrib[msc].getAttribute("title") + "</i>. " + atrib[msc].getAttribute("pubPlace") + ", " + atrib[msc].getAttribute("publisher") + ", " + atrib[msc].getAttribute("pubDate") + ", " + atrib[msc].getAttribute("pags") + "</td></tr></table>";} else {textms += "";}
-
-	 if (atrib[msc].getAttribute("editor2") >"") {textms += "<table border='0' width='90%'><tr><td width='15%'></td><td>" +  atrib[msc].getAttribute("editor2") + ", <i>" + atrib[msc].getAttribute("title2") + "</i>. " + atrib[msc].getAttribute("pubPlace2") + ", " + atrib[msc].getAttribute("publisher2") + ", " + atrib[msc].getAttribute("pubDate2") + ", " + atrib[msc].getAttribute("pags2") + "</td></tr></table>";} else {textms += "";}
-
-	 if (same1>"") {textms += "<table border='0' width='90%'><tr><td width='15%'>El mismo serm&#243;n en:</td><td>" + atrib[msc].getAttribute("same1") + "</td></tr></table>";
+	 if (atrib[msc].getAttribute("schneyer") !="") {text += "<table border='0' width='90%'><tr><td width='15%'>Schneyer:</td><td>" + atrib[msc].getAttribute("schneyer") + "</td></tr></table>";} else {text += "";}
+	 if (atrib[msc].getAttribute("editor") !="") {textms += "<table border='0' width='90%'><tr><td width='15%'> Edition:</td><td>" +  atrib[msc].getAttribute("editor") + ", <i>" + atrib[msc].getAttribute("title") + "</i>. " + atrib[msc].getAttribute("pubPlace") + ", " + atrib[msc].getAttribute("publisher") + ", " + atrib[msc].getAttribute("pubDate2") + ", " + atrib[msc].getAttribute("pags") + "</td></tr></table>";} else {textms += "";}
+	 if (atrib[msc].getAttribute("editor2") !="") {textms += "<table border='0' width='90%'><tr><td width='15%'></td><td>" +  atrib[msc].getAttribute("editor2") + ", <i>" + atrib[msc].getAttribute("title2") + "</i>. " + atrib[msc].getAttribute("pubPlace2") + ", " + atrib[msc].getAttribute("publisher2") + ", " + atrib[msc].getAttribute("pubDate2") + ", " + atrib[msc].getAttribute("pags2") + "</td></tr></table>";} else {textms += "";}
+	 if (same1>"") {textms += "<table border='0' width='90%'><tr><td width='15%'>The same sermon in:</td><td>" + atrib[msc].getAttribute("same1") + "</td></tr></table>";
 			 } else {textms += ""; }
 	 if (same2>"") {textms += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[msc].getAttribute("same2") + "</td></tr></table>";} else {textms += ""; }
 	 if (same3>"") {textms += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[msc].getAttribute("same3") + "</td></tr></table>";} else {textms += ""; }
@@ -527,36 +537,39 @@ function manuscrit() { // ve de la cerca manuscrit via resetms
 	 if (same5>"") {textms += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[msc].getAttribute("same5") + "</td></tr></table>";} else {textms += ""; }
 	 if (same6>"") {textms += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[msc].getAttribute("same6") + "</td></tr></table>";} else {textms += ""; } 
 	 if (same7>"") {textms += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[msc].getAttribute("same7") + "</td></tr></table>";} else {textms += ""; }
-	 if (sipdf >"") {textms += "<table border='0' width='90%'><tr><td width='15%'>Edici&#243;n electr&#243;nica:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>Ver PDF</a></td></tr></table>";} else { textms += "";}
-     if (sischneyer >"")  {textms += "<table border='0' width='90%'><tr><td width='15%'>Schneyer:</td><td>" + sischneyer + "</td></tr></table>";} else { textms += "";}
+	 if (sipdf !="") {textms += "<table border='0' width='90%'><tr><td width='15%'>Edition electr&#243;nica:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>See PDF</a></td></tr></table>";} else { textms += "";}
+     if (sischneyer == null) {textms += "";
+			} else if (sischneyer !="")  {textms += "<table border='0' width='90%'><tr><td width='15%'>Schneyer:</td><td>" + sischneyer + "</td></tr></table>";
+		    } else { textms += "";}
      if (siphilobiblon>"") {textms += "<table width='90%'><tr><td><a href=" + siphilobiblon + " class='btn' target= '_blank'>Philobiblon</a> </td></tr></table>";}	 else { textms += "";}
+	 if (siimg>"") {textms += "<table width='90%'><tr><td><img src='" + atrib[msc].getAttribute("img") + "' class='btn' target= '_blank'>Philobiblon</a> </td></tr></table>";}	 else { textms += "";}
+	 
 	
 			document.getElementById("tagindoc").innerHTML = "<table border='0' width='90%'><tr></tr></table>" + textms;
 		}
- 		
-		if  (curms > 1 && casum == paraula && coincid < minpag) { // Quan casos < minpag no imprimeixis els resultats pero suma 1 a coinc
+ 		 else if  (curms > 1 && casum == paraula && coincid < minpag) { // Quan casos < minpag no imprimeixis els resultats pero suma 1 a coinc
 			coincid++ }
 
 		 if  (curms > 1 && casum == paraula && coincid >= minpag && coincid <= maxpag) { // Les 'normals' a partir de la pàgina 2
 			 coincid++
-			 textms += "<hr/><table border='0' width='90%'><tr><td width='15%'>Localizaci&#243;n:</td><td>" + atrib[msc].getAttribute("settlement") + ", " + atrib[msc].getAttribute("repository") + ", " + atrib[msc].getAttribute("idno") + "</td></tr></table>";
+			 textms += "<hr/><table border='0' width='90%'><tr><td width='15%'>Localization:</td><td>" + atrib[msc].getAttribute("settlement") + ", " + atrib[msc].getAttribute("repository") + ", " + atrib[msc].getAttribute("idno") + "</td></tr></table>";
 
-     if (atrib[msc].getAttribute("author") !="") {textms += "<table border='0' width='90%'><tr><td width='15%'> Autor:</td><td>" + atrib[msc].getAttribute("author") + "</td></tr></table>";} else {textms += "";}
-     if (siinfoesp>"") {textms += "<table border='0' width='90%'><tr><td width='15%'> Informaci&#243;n:</td><td>" + atrib[msc].getAttribute("infoesp") + "</td></tr></table>";} else {textms += "";}
+     if (atrib[msc].getAttribute("author") !="") {textms += "<table border='0' width='90%'><tr><td width='15%'> Author:</td><td>" + atrib[msc].getAttribute("author") + "</td></tr></table>";} else {textms += "<table border='0' width='90%'><tr><td width='15%'> Author:</td><td> Unknown </td></tr></table>";}
+     if (siinfoeng>"") {textms += "<table border='0' width='90%'><tr><td width='15%'> information:</td><td>" + atrib[msc].getAttribute("infoeng") + "</td></tr></table>";} else {textms += "";}
      if (atrib[msc].children[0].getAttribute("thema_verse") !="") {textms += "<table border='0' width='90%'><tr><td width='15%'> Thema:</td><td>" + atrib[msc].children[0].getAttribute("thema_verse") + ": " + atrib[msc].children[0].innerHTML  + "</td></tr></table>";} else {textms += "";}
-	 if (sibiblio>"") {textms += "<table border='0' width='90%'><tr><td width='15%' valign='top'> Bibliograf&#237;a:</td><td>" + atrib[msc].getAttribute("bibliografia") + "</td></tr></table>";} else {textms += "";}
+	 if (sibiblio>"") {textms += "<table border='0' width='90%'><tr><td width='15%' valign='top'> Bibliography:</td><td>" + atrib[msc].getAttribute("bibliografia") + "</td></tr></table>";} else {textms += "";}
 	 if (sibiblio2>"") {textms += "<table border='0' width='90%'><tr><td width='15%' valign='top'></td><td>" + atrib[msc].getAttribute("bibliografia2") + "</td></tr></table>";} else {textms += "";}
  	 if (sibiblio3>"") {textms += "<table border='0' width='90%'><tr><td width='15%' valign='top'></td><td>" + atrib[msc].getAttribute("bibliografia3") + "</td></tr></table>";} else {textms += "";}
 	 if (atrib[msc].getAttribute("schneyer") !="") {text += "<table border='0' width='90%'><tr><td width='15%'>Schneyer:</td><td>" + atrib[msc].getAttribute("schneyer") + "</td></tr></table>";}	 else {text += "";}
-	 if (atrib[msc].getAttribute("editor") !="") {textms += "<table border='0' width='90%'><tr><td width='15%'> Edici&#243;n:</td><td>" +  atrib[msc].getAttribute("editor") + ", <i>" + atrib[msc].getAttribute("title") + "</i>, " + atrib[msc].getAttribute("pubPlace") + ", " + atrib[msc].getAttribute("publisher") + ", " + atrib[msc].getAttribute("date") + ", " + atrib[msc].getAttribute("pags") + "</td></tr></table>";}	 else {textms += "";}
-	 if (same1>"") {textms += "<table border='0' width='90%'><tr><td width='15%'>El mismo serm&#243;n en:</td><td>" + atrib[msc].getAttribute("same1") + "</td></tr></table>";} else {textms += ""; }
+	 if (atrib[msc].getAttribute("editor") !="") {textms += "<table border='0' width='90%'><tr><td width='15%'> Edition:</td><td>" +  atrib[msc].getAttribute("editor") + ", <i>" + atrib[msc].getAttribute("title") + "</i>, " + atrib[msc].getAttribute("pubPlace") + ", " + atrib[msc].getAttribute("publisher") + ", " + atrib[msc].getAttribute("date") + ", " + atrib[msc].getAttribute("pags") + "</td></tr></table>";}	 else {textms += "";}
+	 if (same1>"") {textms += "<table border='0' width='90%'><tr><td width='15%'>The same sermon in:</td><td>" + atrib[msc].getAttribute("same1") + "</td></tr></table>";} else {textms += ""; }
 	 if (same2>"") {textms += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[msc].getAttribute("same2") + "</td></tr></table>";} else {textms += ""; }
 	 if (same3>"") {textms += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[msc].getAttribute("same3") + "</td></tr></table>";} else {textms += ""; }
 	 if (same4>"") {textms += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[msc].getAttribute("same4") + "</td></tr></table>";} else {textms += ""; }
 	 if (same5>"") {textms += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[msc].getAttribute("same5") + "</td></tr></table>";} else {textms += ""; }
 	 if (same6>"") {textms += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[msc].getAttribute("same6") + "</td></tr></table>";} else {textms += ""; } 
 	 if (same7>"") {textms += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[msc].getAttribute("same7") + "</td></tr></table>";} else {textms += ""; }
-	 if (sipdf !="") {textms += "<table border='0' width='90%'><tr><td width='15%'>Edici&#243;n electr&#243;nica:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>Ver PDF</a></td></tr></table>";} else { textms += "";}
+	 if (sipdf !="") {textms += "<table border='0' width='90%'><tr><td width='15%'>Edition electr&#243;nica:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>See PDF</a></td></tr></table>";} else { textms += "";}
 	 if (sischneyer == null) {textms += "";
 				 } else if (sischneyer !="")  {textms += "<table border='0' width='90%'><tr><td width='15%'>Schneyer:</td><td>" + sischneyer + "</td></tr></table>";
 		     	 } else { textms += "";}
@@ -567,17 +580,17 @@ function manuscrit() { // ve de la cerca manuscrit via resetms
 			 
 		if  (numms == 0) {
 			 document.getElementById("tagindoc").innerHTML = "";
-			 document.getElementById("tagindoc").innerHTML = "Manuscrito en fase de vaciado. Pr&#243;ximamente se especificar&#225;n los sermones que lo componen.";
+			 document.getElementById("tagindoc").innerHTML = "Sorry. We will soon update the information of this manuscript";
 		 } else if (pagines == 1 && curms ==1) { // Si estàs (al final de la) primera pàgina i només hi ha una pàgina. No posar  fletxes
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + coincid + " de " + numms + " - P&#225;gina " + curms + " de " + pagines + "</td></tr></table>";
-		 } else if (curms == 1) { // Si has arribat al final de la primera pàgina, només fletxa Next
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + coincid + " de " + numms + " - P&#225;gina " + curms + " de " + pagines + "  <button class='btn' onclick='mesms()'> Siguiente </button></td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + coincid + " of " + numms + " - Page " + curms + " of " + pagines + "</td></tr></table>";
+		 } else if (pagines>1 && curms == 1) { // Si has arribat al final de la primera pàgina, només fletxa Next
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + maxpag + " of " + numms + " - Page " + curms + " of " + pagines + "  <button class='btn' onclick='mesms()'> Next </button></td></tr></table>";
 		 } else if (curms == pagines && coincid > numms) { // Si has arribat al final de les respostes = al final de la última pàgina, només fletxa Prev
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + (coincid-1) + " de " + numms + " - P&#225;gina " + curms + " de " + pagines + "  <button class='btn' onclick='menysms()'> Anterior </button></td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + (coincid-1) + " of " + numms + " - Page " + curms + " of " + pagines + "  <button class='btn' onclick='menysms()'> Previous </button></td></tr></table>";
 		 }  else if (curpages == pagines) { // Si has arribat al final de les respostes = al final de la última pàgina, només fletxa Prev
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + (coincid-1) + " de " + numms + " - P&#225;gina " + curms + " de " + pagines + "  <button class='btn' onclick='menysms()'> Anterior </button></td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + (coincid-1) + " of " + numms + " - Page " + curms + " of " + pagines + "  <button class='btn' onclick='menysms()'> Previous </button></td></tr></table>";
 		} else {
-		    document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td><button class='btn' onclick='menysms()'> Anterior </button>  Resultados " + minpag + " a " + (coincid-1) + " de " + numms + " - P&#225;gina " + curms + " de " + pagines + "  &nbsp;&nbsp;<button class='btn' onclick='mesms()'> Siguiente </button> </td> </tr> </table>";
+		    document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> <button class='btn' onclick='menysms()'> Previous </button>&nbsp;&nbsp; " + minpag + " to " + (coincid-1) + " of " + numms + " - Page " + curms + " of " + pagines + "&nbsp;&nbsp;<button class='btn' onclick='mesms()'> Next </button> </td> </tr> </table>";
 		       }
            }
 	   }
@@ -611,28 +624,28 @@ function manuscrit() { // ve de la cerca manuscrit via resetms
 	  coincid="0";
       incid="0";
 	  coinc="0";
-	  resperpage="10";
+	  respperpage="10";
 	  s="0";
 	  var positius = "0";
 	  for (d = 0; d < resposta; d++) { // conta els sermons amb autor buscat
 	     var casum = xmlDoc.getElementsByTagName("sermo")[d].getAttribute("author");
-		 var repetits = xmlDoc.getElementsByTagName("sermo")[d].getAttribute("repe");
+ 		 var repetits = xmlDoc.getElementsByTagName("sermo")[d].getAttribute("repe");
 		 
 		 if  (casum == null) { } 
-		 if ((casum == paraula) && (repetits !="si"))  { positius++ }
+ 		 if ((casum == paraula) && (repetits !="si"))  { positius++ }
         }
 
- 	   var pagines = Math.ceil (positius/resperpage);
-	   var minpag = (((curauthor-1) * resperpage)+1);
-	   var maxpag = curauthor * resperpage;
+ 	   var pagines = Math.ceil (positius/respperpage);
+	   var minpag = (((curauthor-1) * respperpage)+1);
+	   var maxpag = curauthor * respperpage;
 	   for (s = 0; s < resposta; s++) { // resposta = tots els sermons
          var casos = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("author");
 		 var repeated = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("repe");
 		 var sipdf = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("pdf");
 		 var sieditor = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("editor");
-		 var sieditor2 = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("editor2");		 
+ 		 var sieditor2 = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("editor2");
   		 var sischneyer = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("schneyer");
-		 var siinfoesp = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("infoesp");
+		 var siinfoeng = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("infoeng");
 		 var sibibliografia = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("bibliografia");
 		 var sisettlement1 = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("same1");
 		 var sisettlement2 = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("same2");
@@ -645,64 +658,66 @@ function manuscrit() { // ve de la cerca manuscrit via resetms
 		 var sisettlement9 = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("same9");
 		 var sisettlement10 = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("same10");
 		 		 
-		 if (curauthor == 1 && casos == paraula && repeated !="si" && coinc < maxpag) { //Primera pàgina
+		 if (curauthor == 1 && casos == paraula && coinc < maxpag) { //Primera pàgina
 		    coinc++;
 
-		if (atrib[s].children[0].getAttribute("thema_verse") !="") {text += "<table border='0' width='100%'><tr><td width='15%'>Thema:</td><td>" + atrib[s].children[0].getAttribute("thema_verse") + ": " + atrib[s].children[0].innerHTML +  "</td></tr></table>"; }
-			if (atrib[s].children[0].getAttribute("incipit")>"") {text += "<table border='0' width='100%'><tr><td width='15%'> Incipit:</td><td>" + atrib[s].getAttribute("incipit") + "</td></tr></table>";}
-			if (atrib[s].children[0].getAttribute("explicit")>"") {text += "<table border='0' width='100%'><tr><td width='15%'> Explicit:</td><td>" + atrib[s].getAttribute("explicit") + "</td></tr></table>";}
-			if (atrib[s].getAttribute("settlement") !="") {text += "<table border='0' width='100%'><tr><td width='15%'>Manuscritos: </td><td>" + atrib[s].getAttribute("settlement") + ", " + atrib[s].getAttribute("repository") + ", " + atrib[s].getAttribute("idno") + "</td></tr></table>";}
-			if (sisettlement1) {text += "<table border='0' width='100%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same1") + "</td></tr></table>";	}
-			if (sisettlement2) {text += "<table border='0' width='100%'><tr><td width='15%'> </td><td>" + atrib[s].getAttribute("same2") + "</td></tr></table>";	}
-	        if (sisettlement3) {text += "<table border='0' width='100%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same3") + "</td></tr></table>";	}
-			if (sisettlement4) {text += "<table border='0' width='100%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same4") + "</td></tr></table>";	} 
-			if (sisettlement5) {text += "<table border='0' width='100%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same5") + "</td></tr></table>";	} 
-			if (sisettlement6) {text += "<table border='0' width='100%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same6") +"</td></tr></table>";	} 
-			if (sisettlement7) {text += "<table border='0' width='100%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same7") +"</td></tr></table>";	} 
-			if (sisettlement8) {text += "<table border='0' width='100%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same8") +"</td></tr></table>";	} 
-			if (sisettlement9) {text += "<table border='0' width='100%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same9") +"</td></tr></table>";	} 
-			if (sisettlement10) {text += "<table border='0' width='100%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same10") +"</td></tr></table>";	} 
-			if (sieditor !="") {text += "<table border='0' width='100%'><tr><td width='15%' style='vertical-align: top'>Edición: </td><td>" + atrib[s].getAttribute("editor") + ", <i>" + atrib[s].getAttribute("title") + "</i>. " + atrib[s].getAttribute("pubPlace") + ", " + atrib[s].getAttribute("publisher") + ", " + atrib[s].getAttribute("pubDate") + ", p. " + atrib[s].getAttribute("pags") +"</td></tr></table>";}
-			if (sieditor2) {text += "<table border='0' width='100%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("editor2") + ", <i>" + atrib[s].getAttribute("title2") + "</i>. " + atrib[s].getAttribute("pubPlace2") + ", " + atrib[s].getAttribute("publisher2") + ", " + atrib[s].getAttribute("pubDate2") + ", p. " + atrib[s].getAttribute("pags2") +"</td></tr></table>";}
-			if (sischneyer >"") {text += "<table border='0' width='100%'><tr><td width='15%'>Schneyer: </td><td>" + atrib[s].getAttribute("schneyer") +"</td></tr></table>";} else {text += "" }
-			if (sibibliografia >"") {text += "<table border='0' width='100%'><tr><td width='15%' valign='top'>Bibliografía: </td><td>" + atrib[s].getAttribute("bibliografia") + "</td></tr></table>";} else {text += ""}
-			if (siinfoesp >"") {text += "<table border='0' width='100%'><tr><td width='15%'>Informaci&#243;n: </td><td>" + atrib[s].getAttribute("infoesp") + "</td></tr></table>";}
-			if (sipdf !="") {text += "<table border='0' width='100%'><tr><td width='15%'>Edici&#243;n electr&#243;nica:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>Ver  PDF</a></td></tr></table>"; } else {text += ""}
-			 
-			text += "<hr/>"
-			document.getElementById("tagindoc").innerHTML = "<table border='0' width='100%'></table>" + text;
-			}
+		if (atrib[s].children[0].getAttribute("thema_verse") !="") {text += "<table border='0' width='90%'><tr><td width='15%'>Thema:</td><td>" + atrib[s].children[0].getAttribute("thema_verse") + ": " + atrib[s].children[0].innerHTML +  "</td></tr></table>"; }
+		if (atrib[s].getAttribute("incipit")>"") {text += "<table border='0' width='90%'><tr><td width='15%'> Incipit:</td><td>" + atrib[s].getAttribute("incipit") + "</td></tr></table>";}
+		if (atrib[s].getAttribute("explicit")>"") {text += "<table border='0' width='90%'><tr><td width='15%'> Explicit:</td><td>" + atrib[s].getAttribute("explicit") + "</td></tr></table>";}
+		if (atrib[s].getAttribute("settlement") !="") {text += "<table border='0' width='90%'><tr><td width='15%'>Manuscript: </td><td>" + atrib[s].getAttribute("settlement") + ", " + atrib[s].getAttribute("repository") + ", " + atrib[s].getAttribute("idno") + "</td></tr></table>";}
+		if (sisettlement1) {text += "<table border='0' width='90%'><tr><td width='15%'>The same sermon in: </td><td>" + atrib[s].getAttribute("same1") + "</td></tr></table>";	}
+		if (sisettlement2) {text += "<table border='0' width='90%'><tr><td width='15%'> </td><td>" + atrib[s].getAttribute("same2") + "</td></tr></table>";	}
+        if (sisettlement3) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same3") + "</td></tr></table>";	}
+		if (sisettlement4) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same4") + "</td></tr></table>";	} 
+		if (sisettlement5) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same5") + "</td></tr></table>";	} 
+		if (sisettlement6) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same6") +"</td></tr></table>";	} 
+		if (sisettlement7) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same7") +"</td></tr></table>";	} 
+		if (sisettlement8) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same8") +"</td></tr></table>";	} 
+		if (sisettlement9) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same9") +"</td></tr></table>";	} 
+		if (sisettlement10) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("same10") +"</td></tr></table>";	} 
+		if (sieditor !="") {text += "<table border='0' width='90%'><tr ><td width='15%' style='vertical-align:top'>Edition:</td><td>" + atrib[s].getAttribute("editor") + ", <i>" + atrib[s].getAttribute("title") + "</i>. " + atrib[s].getAttribute("pubPlace") + ", " + atrib[s].getAttribute("publisher") + ", " + atrib[s].getAttribute("pubDate") + ", p. " + atrib[s].getAttribute("pags") +"</td></tr></table>";}
+        if (sieditor2) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("editor2") + ", <i>" + atrib[s].getAttribute("title2") + "</i>. " + atrib[s].getAttribute("pubPlace2") + ", " + atrib[s].getAttribute("publisher2") + ", " + atrib[s].getAttribute("pubDate2") + ", p. " + atrib[s].getAttribute("pags2") + "</td></tr></table>";}
+		if (sischneyer>"") {text += "<table border='0' width='90%'><tr><td width='15%'>Schneyer: </td><td>" + atrib[s].getAttribute("schneyer") +"</td></tr></table>";} else {text += "" }
+		if (sibibliografia>"") {text += "<table border='0' width='90%'><tr><td width='15%' valign='top'>Bibliography: </td><td>" + atrib[s].getAttribute("bibliografia") + "</td></tr></table>";} else {text += ""}
+		if (siinfoeng) {text += "<table border='0' width='90%'><tr><td width='15%'>information: </td><td>" + atrib[s].getAttribute("infoeng") + "</td></tr></table>";}
+		if (sipdf>"") {text += "<table border='0' width='90%'><tr><td width='15%'>Edition electr&#243;nica:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>Ver  PDF</a></td></tr></table>"; } else {text += ""}
+		
+		text += "<hr/>";
+		document.getElementById("tagindoc").innerHTML = "<table border='0' width='100%'></table>" + text;
+		}
 			
-		 if (curauthor > 1 && casos == paraula && repeated !="si" && coinc < minpag) { // Quan casos < minpag no imprimeixis els resultats pero suma 1 a coinc
+		 if (curauthor> 1 && casos == paraula && repeated !="si" && coinc < minpag) { // Quan casos < minpag no imprimeixis els resultats pero suma 1 a coinc
 			coinc++ 
 		 }
-		 if (curauthor > 1 && casos == paraula && repeated !="si" && coinc >= minpag && coinc <= maxpag) { //Pàgines de la 2 a la última -1
+		 if (curauthor> 1 && casos == paraula && repeated !="si" && coinc >= minpag && coinc <= maxpag) { //Pàgines de la 2 a la última -1
 			coinc++
-		    text += "<table border='0' width='100%'><tr><td width='15%'>Thema</td><td>" + atrib[s].children[0].getAttribute("thema_verse") + ": " + atrib[s].children[0].innerHTML + "</tr><tr><td>Manuscrito: </td><td>" + atrib[s].getAttribute("settlement") + ", " + atrib[s].getAttribute("repository") + ", " + atrib[s].getAttribute("idno") + "</td></tr></table>";
+		    text += "<table border='0' width='90%'><tr><td width='15%'>Thema</td><td>" + atrib[s].children[0].getAttribute("thema_verse") + ": " + atrib[s].children[0].innerHTML + "</tr><tr><td>Manuscript: </td><td>" + atrib[s].getAttribute("settlement") + ", " + atrib[s].getAttribute("repository") + ", " + atrib[s].getAttribute("idno") + "</td></tr></table>";
 	         
-		 if  (sieditor !="") {
-				text += "<table border='0' width='100%'><tr><td width='15%'>Edici&#243;n: </td><td>" + atrib[s].getAttribute("editor") + ", <i>" + atrib[s].getAttribute("title") + "</i>. " + atrib[s].getAttribute("pubPlace") + ", " + atrib[s].getAttribute("publisher") + ", " + atrib[s].getAttribute("date") + ", p. " + atrib[s].getAttribute("pags") +"</td></tr></table>";
-				}	 else { }
-		 if (sischneyer >"") {text += "<table border='0' width='100%'><tr><td width='15%'>Schneyer: </td><td>" + atrib[s].getAttribute("schneyer") +"</td></tr></table>";} else {text += "" }
-		 if (sibibliografia >"") {text += "<table border='0' width='100%'><tr><td width='15%' valign='top'>Bibliograf&#237;a: </td><td>" + atrib[s].getAttribute("bibliografia") + "</td></tr></table>";} else {text += ""}
-		 if (sipdf !="") {text += "<table border='0' width='100%'><tr><td width='15%'>Edici&#243;n electr&#243;nica:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>Ver  PDF</a></td></tr></table>";} else {text += "" }
+		 if (sieditor!="") {
+				text += "<table border='0' width='90%'><tr><td width='15%'>Edition: </td><td>" + atrib[s].getAttribute("editor") + ", <i>" + atrib[s].getAttribute("title") + "</i>. " + atrib[s].getAttribute("pubPlace") + ", " + atrib[s].getAttribute("publisher") + ", " + atrib[s].getAttribute("date") + ", p. " + atrib[s].getAttribute("pags") +"</td></tr></table>";
+				}	 else {
+				}
+         if (sieditor2) {text += "<table border='0' width='90%'><tr><td width='15%'></td><td>" + atrib[s].getAttribute("editor2") +"</td></tr></table>";}
+		 if (sischneyer >"") {text += "<table border='0' width='90%'><tr><td width='15%'>Schneyer: </td><td>" + atrib[s].getAttribute("schneyer") +"</td></tr></table>";} else {text += "" }
+		 if (sibibliografia >"") {text += "<table border='0' width='90%'><tr><td width='15%' valign='top'>Bibliography: </td><td>" + atrib[s].getAttribute("bibliografia") + "</td></tr></table>";} else {text += ""}
+		 if (sipdf !="") {text += "<table border='0' width='90%'><tr><td width='15%'>Edition electr&#243;nica:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>Ver  PDF</a></td></tr></table>";} else {text += "" }
 
-			text += "<hr/>"
+		text += "<hr/>";
 			document.getElementById("tagindoc").innerHTML = "<table border='0' width='100%'></table>" + text;
 			}
 
-		 if  (pagines ==0 && coinc == 0) {
-			document.getElementById("respostatext").innerHTML = "La base de datos no contiene sermones de este autor";
+		 if (pagines ==0 && coinc == 0) {
+			document.getElementById("respostatext").innerHTML = "There are no sermones by this author / preacher in the DB. Please, check the spelling and try again.";
 		 } else if (pagines == 1 && curauthor ==1) { // Si estàs (al final de la) primera pàgina i només hi ha una pàgina. No posar  fletxes
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + positius + " de " + positius + " - P&#225;gina " + curauthor + " de " + pagines + "</td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + positius + " of " + positius + " - Page " + curauthor + " of " + pagines + "</td></tr></table>";
 		 } else if (curauthor == 1) { // Si has arribat al final de la primera pàgina, només fletxa Next
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + maxpag + " de " + positius + " - P&#225;gina " + curauthor + " de " + pagines + " <button class='btn' onclick='mesu4()'> Siguiente </button></td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + maxpag + " of " + positius + " - Page " + curauthor + " of " + pagines + "  <button class='btn' onclick='mesu4()'> Next </button></td></tr></table>";
 		 } else if (curauthor == pagines && coinc > positius) { // Si has arribat al final de les respostes = al final de la última pàgina, només fletxa Prev + reinicia pagines
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td><button class='btn' onclick='menysu4()'> Anterior </button>  Resultados " + minpag + " a " + positius + " de " + positius + " - Página " + curauthor + " de " + pagines + "</td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td><button class='btn' onclick='menysu4()'> Previous </button>&nbsp;&nbsp; " + minpag + " to " + positius + " of " + positius + " - Page " + curauthor + " of " + pagines + "</td></tr></table>";
 		 }  else if (curauthor == pagines) { // Si has arribat al final de les respostes = al final de la última pàgina, només fletxa Prev
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td><button class='btn' onclick='menysu4()'> Anterior </button> Resultados " + minpag + " a " + positius + " de " + positius + " - Página " + curauthor + " de " + pagines + "</td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td><button class='btn' onclick='menysu4()'> Previous </button>&nbsp;&nbsp; " + minpag + " to " + positius + " of " + positius + " - Page " + curauthor + " of " + pagines + "</td></tr></table>";
 		} else {
-		    document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + maxpag + " de " + positius + " - P&#225;gina " + curauthor + " de " + pagines + "  <button class='btn' onclick='menysu4()'> Anterior </button>&nbsp;&nbsp;<button class='btn' onclick='mesu4()'> Siguiente </button> </td> </tr> </table>";
+		    document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td><button class='btn' onclick='menysu4()'> Previous </button>&nbsp;&nbsp; " + minpag + " to " + maxpag + " of " + positius + " - Page " + curauthor + " of " + pagines + "  <button class='btn' onclick='mesu4()'> Next </button></td> </tr> </table>";
               }
 		  }
 	   }
@@ -733,7 +748,7 @@ function feast () {
 	  coincid="0";
       incid="0";
 	  coinc="0";
-	  resperpage="10";
+	  respperpage="10";
 	  s="0";
 	  var positiusfeast="0";
 	  for (d = 0; d < respostafeast; d++) { // calcula coincidències i crea el nombre de pàgines
@@ -743,9 +758,9 @@ function feast () {
 		 positiusfeast++
             }
         }
- 	   var pagines = Math.ceil (positiusfeast/resperpage);
-	   var minpag = (((curfeast-1) * resperpage)+1);
-	   var maxpag = curfeast * resperpage;
+ 	   var pagines = Math.ceil (positiusfeast/respperpage);
+	   var minpag = (((curfeast-1) * respperpage)+1);
+	   var maxpag = curfeast * respperpage;
 	   
 	   for (s = 0; s < respostafeast; s++) { // resposta = tots els sermons
          var casos = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("feast");
@@ -759,27 +774,27 @@ function feast () {
 		 var sisettlement8 = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("settlement8");
 		 var sisettlement9 = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("settlement9");
 		 var sisettlement10 = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("settlement10");
-		 
+		 		 
 		 var sieditor = xmlDoc.getElementsByTagName("sermo")[s].getAttribute("editor");
-		 
+		
 		 if (curfeast == 1 && casos == paraula && coinc < maxpag) { //Primera pàgina
 		    coinc++
 		    textfeast += "<table border='0' width='100%'><hr/><tr><td width='15%'>Thema</td><td>" + atrib[s].children[0].getAttribute("thema_verse") + ": " + atrib[s].children[0].innerHTML + "</tr><tr><td>Author (preacher): </td><td>" + atrib[s].getAttribute("author") + "</tr><tr><td>Manuscript: </td><td>" + atrib[s].getAttribute("settlement") + ", " + atrib[s].getAttribute("repository") + ", " + atrib[s].getAttribute("idno") + "</td></tr>";
 			
-			if (sisettlement2) {textfeast += "<tr><td></td><td>" + sisettlement2 + atrib[s].getAttribute("repository2") + atrib[s].getAttribute("idno2") + "</td></tr>";}
-	        if (sisettlement3) {textfeast += "<tr><td></td><td>" + sisettlement3 + atrib[s].getAttribute("repository3") + atrib[s].getAttribute("idno3") + "</td></tr>";}
-			if (sisettlement4) {textfeast += "<tr><td></td><td>" + atrib[s].getAttribute("settlement4") + atrib[s].getAttribute("repository4") + atrib[s].getAttribute("idno4") + "</td></tr>";} 
-			if (sisettlement5) {textfeast += "<tr><td></td><td>" + atrib[s].getAttribute("settlement5") + atrib[s].getAttribute("repository5") + atrib[s].getAttribute("idno5") + "</td></tr>";} 
-			if (sisettlement6) {textfeast += "<tr><td></td><td>" + atrib[s].getAttribute("settlement6") + atrib[s].getAttribute("repository6") + atrib[s].getAttribute("idno6") + "</td></tr>";} 
+			if (sisettlement2) {text += "<tr><td></td><td>" + sisettlement2 + atrib[s].getAttribute("repository2") + atrib[s].getAttribute("idno2") + "</td></tr>";}
+	        if (sisettlement3) {text += "<tr><td></td><td>" + sisettlement3 + atrib[s].getAttribute("repository3") + atrib[s].getAttribute("idno3") + "</td></tr>";}
+			if (sisettlement4) {text += "<tr><td></td><td>" + atrib[s].getAttribute("settlement4") + atrib[s].getAttribute("repository4") + atrib[s].getAttribute("idno4") + "</td></tr>";} 
+			if (sisettlement5) {text += "<tr><td></td><td>" + atrib[s].getAttribute("settlement5") + atrib[s].getAttribute("repository5") + atrib[s].getAttribute("idno5") + "</td></tr>";} 
+			if (sisettlement6) {text += "<tr><td></td><td>" + atrib[s].getAttribute("settlement6") + atrib[s].getAttribute("repository6") + atrib[s].getAttribute("idno6") + "</td></tr>";} 
 			if (sisettlement7) {text += "<tr><td></td><td>" + atrib[s].getAttribute("settlement7") + atrib[s].getAttribute("repository7") + atrib[s].getAttribute("idno7") + "</td></tr>";} 
 			if (sisettlement8) {text += "<tr><td></td><td>" + atrib[s].getAttribute("settlement8") + atrib[s].getAttribute("repository8") + atrib[s].getAttribute("idno8") + "</td></tr>";} 
 			if (sisettlement9) {text += "<tr><td></td><td>" + atrib[s].getAttribute("settlement9") + atrib[s].getAttribute("repository9") + atrib[s].getAttribute("idno9") + "</td></tr>";} 
 			if (sisettlement10) {text += "<tr><td></td><td>" + atrib[s].getAttribute("settlement10") + atrib[s].getAttribute("repository10") + atrib[s].getAttribute("idno10") + "</td></tr>";} 
 			
-			if (sieditor) {textfeast += "<tr><td>Edition: </td><td>" + atrib[s].getAttribute("editor") + "<i>" + atrib[s].getAttribute("title") + "</i> " + atrib[s].getAttribute("pubPlace") + atrib[s].getAttribute("publisher") + atrib[s].getAttribute("date") + atrib[s].getAttribute("pags") +"</td></tr></table>";}
+			if (sieditor) {textfeast += "<tr><td>Edition: </td><td>" + atrib[s].getAttribute("editor") + "<i>" + atrib[s].getAttribute("title") + "</i> " + atrib[s].getAttribute("pubPlace") + atrib[s].getAttribute("publisher") + atrib[s].getAttribute("date") + atrib[s].getAttribute("pags") +"</td></tr></table>"; }
 			
 			 if ( sipdf !="") {
-			 textfeast += "<table border='0' width='100%'><tr><td width='15%'>Electronic edition:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>Ver PDF</a></td></tr></table>";
+			 textfeast += "<table border='0' width='100%'><tr><td width='15%'>Electronic edition:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>See PDF</a></td></tr></table>";
 			 } else {
 				}
 			document.getElementById("tagindoc").innerHTML = "<table border='0' width='100%'></table>" + textfeast;
@@ -793,7 +808,7 @@ function feast () {
 		    textfeast += "<hr/><table border='0' width='100%'><tr><td width='15%'>Thema</td><td>" + atrib[s].children[0].getAttribute("thema_verse") + ": " + atrib[s].children[0].innerHTML + "</tr><tr><td>Author (preacher): </td><td>" + atrib[s].getAttribute("author") + "</tr><tr><td>Manuscript: </td><td>" + atrib[s].getAttribute("settlement") + ", " + atrib[s].getAttribute("repository") + ", " + atrib[s].getAttribute("idno") + "</td></tr></table>";
 	         
 			 if ( sipdf !="") {
-				 textfeast += "<table border='0' width='100%'><tr><td width='15%'>Electronic edition:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>Ver PDF</a></td></tr></table>";
+				 textfeast += "<table border='0' width='100%'><tr><td width='15%'>Electronic edition:</td><td>" + "<a href=" + sipdf + " class='btn' target= '_blank'>See PDF</a></td></tr></table>";
 			 } else {
 				}
 			 			 
@@ -805,15 +820,15 @@ function feast () {
 		 if  (pagines ==0 && coinc == 0) {
 			 document.getElementById("respostatext").innerHTML = "La base de datos no contiene sermones para esta festividad";
 		 } else if (pagines == 1 && curfeast ==1) { // Si estàs (al final de la) primera pàgina i només hi ha una pàgina. No posar  fletxes
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> 0 Resultados " + minpag + " a " + positiusfeast + " de " + positiusfeast + " - P&#225;gina " + curfeast + " de " + pagines + "</td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> 0 " + minpag + " to " + positiusfeast + " of " + positiusfeast + " - Page " + curfeast + " of " + pagines + "</td></tr></table>";
 		 } else if (curfeast == 1) { // Si has arribat al final de la primera pàgina, només fletxa Next
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + maxpag + " de " + positiusfeast + " - P&#225;gina " + curfeast + " de " + pagines + " <button class='btn' onclick='mesu5()'> Siguiente </button></td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + maxpag + " of " + positiusfeast + " - Page " + curfeast + " of " + pagines + " <button class='btn' onclick='mesu5()'> Next </button></td></tr></table>";
 		 } else if (curfeast == pagines && coinc > positiusfeast) { // Si has arribat al final de les respostes = al final de la última pàgina, només fletxa Prev + reinicia pagines
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td><button class='btn' onclick='menysu5()'> Anterior </button>&nbsp;&nbsp; Resultados " + minpag + " a " + positiusfeast + " de " + positiusfeast + " - P&#225;gina " + curfeast + " de " + pagines + "</td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td><button class='btn' onclick='menysu5()'> Previous </button>&nbsp;&nbsp; " + minpag + " to " + positiusfeast + " of " + positiusfeast + " - Page " + curfeast + " of " + pagines + "</td></tr></table>";
 		 }  else if (curfeast == pagines) { // Si has arribat al final de les respostes però no és el final de la última pàgina, només fletxa Prev
-            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + positiusfeast + " de " + positiusfeast + " - P&#225;gina " + curfeast + " de " + pagines + "  <button class='btn' onclick='menysu5()'> Anterior </button></td></tr></table>";
+            document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + positiusfeast + " of " + positiusfeast + " - Page " + curfeast + " of " + pagines + "  <button class='btn' onclick='menysu5()'> Previous </button></td></tr></table>";
 		} else {
-		    document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> Resultados " + minpag + " a " + maxpag + " de " + positiusfeast + " - P&#225;gina " + curfeast + " de " + pagines + "  <button class='btn' onclick='menysu5()'> Anterior </button>&nbsp;&nbsp;<button class='btn' onclick='mesu5()'> Siguiente </button> </td> </tr> </table>";
+		    document.getElementById("respostatext").innerHTML = "<table border='0' style='margin: auto;'><tr><td> " + minpag + " to " + maxpag + " of " + positiusfeast + " - Page " + curfeast + " of " + pagines + "  <button class='btn' onclick='menysu5()'> Previous </button>&nbsp;&nbsp;<button class='btn' onclick='mesu5()'> Next </button> </td> </tr> </table>";
               }
 		  }
 	   }
@@ -844,14 +859,13 @@ function menysu5() {
 	feast()
 }
 
-function mesms() {
-	curms++
+function menysms() {
+	curms--
 	document.getElementById("tagindoc").innerHTML = "";
 	manuscrit()
 }
-
-function menysms() {
-	curms--
+function mesms() {
+	curms++
 	document.getElementById("tagindoc").innerHTML = "";
 	manuscrit()
 }
